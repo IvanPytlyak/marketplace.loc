@@ -4,9 +4,12 @@
 
 
 <div class="starter-template">
-    <p class="alert alert-success">The Project was reset</p>
+    <!-- <p class="alert alert-success">The Project was reset</p> -->
     <h1>Все товары</h1>
-    <form method="GET" action="https://internet-shop.tmweb.ru">
+    @foreach ($products as $product)
+    @include('card' , compact('product'))
+    @endforeach
+    <!-- <form method="GET" action="https://internet-shop.tmweb.ru">
         <div class="filters row">
             <div class="col-sm-6 col-md-3">
                 <label for="price_from">Цена от <input type="text" name="price_from" id="price_from" size="6" value="">
@@ -32,11 +35,15 @@
             </div>
         </div>
     </form>
-    <div class="row">
-        @include('card')
-        <!-- @incude('card', ['product'=> $product]) -->
+    <div class="row"> -->
 
-    </div>
+
+
+    <!-- @incude('card', ['product'=> $product]) -->
+    <!-- не раскоменчивать!!!!!!!!! -->
+
+
+    <!-- </div>
     <nav>
         <ul class="pagination">
 
@@ -56,7 +63,7 @@
                 <a class="page-link" href="?&amp;page=2" rel="next" aria-label="pagination.next">&rsaquo;</a>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
 
     @endsection('content')
