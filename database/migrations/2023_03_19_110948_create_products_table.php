@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\Category;
 use Brick\Math\BigInteger;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -16,7 +17,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('category_id');
+            // $table->foreignIdFor(Category::class)->nullable()->constrained('categories')->onDelete('set null');
+            // $table->foreignId('category_id')->constrained('categories');
+            $table->BigInteger('category_id'); //->default(null);
             $table->string('name');
             $table->string('code');
             $table->string('description')->nullable();
