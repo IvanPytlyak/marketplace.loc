@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 
-<div class="starter-template">
+{{-- <div class="starter-template"> --}}
     <h1>iPhone X 64GB</h1>
     <h2>{{ $product }}</h2>
     <!-- return view('product', ['product' => $product]); Maincontroller -->

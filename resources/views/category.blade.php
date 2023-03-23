@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="starter-template">
+{{-- <div class="starter-template"> --}}
     <h1>
         {{ $category->name}} {{$category->products->count()}}
     </h1>
@@ -15,6 +15,6 @@
         @include('card' , compact('product'))
         @endforeach
     </div>
-</div>
+{{-- </div> --}}
 
 @endsection('content')

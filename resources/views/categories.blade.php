@@ -4,7 +4,7 @@
 
 
 
-<div class="starter-template">
+{{-- <div class="starter-template"> --}}
     @foreach ($categories as $category)
     <div class="panel">
         <!-- <a href="/{{route('category', $category->code) }}"> -->

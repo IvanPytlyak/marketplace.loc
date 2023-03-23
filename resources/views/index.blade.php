@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="starter-template">
+{{-- <div class="starter-template"> --}}
     <!-- <p class="alert alert-success">The Project was reset</p> -->
     <h1>Все товары</h1>
     @foreach ($products as $product)

@@ -21,4 +21,18 @@ class Order extends Model
         }
         return $summ;
     }
+
+    public function saveOrder($name, $phone) // потом добавить в параметр email
+    {
+        if ($this->status == 0) {
+            $this->status = 1;
+            $this->name = $name;
+            $this->phone = $phone;
+            // $this->email = $email;
+            $this->save();
+            session()->forget('orderId');
+            return true;
+        } else
+            return false;
+    }
 }
