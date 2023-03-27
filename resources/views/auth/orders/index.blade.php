@@ -4,7 +4,10 @@
 @section('title', 'Заказы')
 
 @section('content')
-    <div class="col-md-12">
+<div class="row justify-content-center">
+    {{-- 7 -delete/ 9-col-md-12 --}}
+    <div class="col-md-10">
+     
         <h1>Заказы</h1>
         <table class="table">
             <tbody>
@@ -28,27 +31,28 @@
                     Действия
                 </th>
             </tr>
-            {{-- @foreach($orders as $order)
+            @foreach($orders as $order)
                 <tr>
                     <td>{{ $order->id}}</td>
                     <td>{{ $order->name }}</td>
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->created_at->format('H:i d/m/Y') }}</td>
-                    <td>{{ $order->sum }} {{ $order->currency->symbol }}</td>
+                    <td>{{ $order->getFullPrice() }} </td>
+                    {{-- {{ $order->currency->symbol }} --}}
                     <td>
                         <div class="btn-group" role="group">
                             <a class="btn btn-success" type="button"
-                               @admin
+                               {{-- @admin
                                href="{{ route('orders.show', $order) }}"
                                @else
                                href="{{ route('person.orders.show', $order) }}"
-                                @endadmin
+                                @endadmin --}}
                             >Открыть</a>
                         </div>
                     </td>
                 </tr>
             @endforeach
-            </tbody> --}}
+            </tbody>
             <tr>
                 <td>#</td>
                 <td>Ivan</td>
@@ -63,5 +67,7 @@
             </tr>
         </table>
         {{-- {{ $orders->links() }} --}}
+      
     </div>
+</div>
 @endsection

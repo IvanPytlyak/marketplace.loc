@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
@@ -47,7 +48,7 @@ class BasketController extends Controller
 
     public function basketAdd($productId)
     {
-        $orderId = session('orderId'); // как это работает? 'orderId'?
+        $orderId = session('orderId'); // как это работает? 'orderId'? // =если сессия активна?
         if (is_null($orderId)) {
             $order = Order::create(); //  стояло  $order = Order::create()->id;
             session(
@@ -64,6 +65,12 @@ class BasketController extends Controller
             $order->products()->attach($productId); //attach добавляет полученный productId в таблицу products->id
         }
         // return view('basket', compact('order'));
+
+        if (Auth::check()) {
+            $order->user_id = Auth::id();
+            $order->save();
+        }
+
         $product = Product::find($productId);
         session()->flash('success', 'Добавлен товар ' . $product->name);
         return redirect()->route('basket'); // редирект,теперь при обновлении страницы не срабатывает повторное добавление товара

@@ -2,31 +2,29 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
+use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class BasketIsNoteEmpty
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next)
     {
-        $guards = empty($guards) ? [null] : $guards;
-
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect()->route('home'); //return redirect(RouteServiceProvider::HOME)
+        $orderId = session('orderId');
+        if (!is_null($orderId)) {
+            $order = Order::findOrFail($orderId);
+            if ($order->products->count() === 0) {
+                session()->flash('warning', 'Ваша корзина пуста');
+                return redirect()->route('index');
             }
         }
-
         return $next($request);
     }
 }
