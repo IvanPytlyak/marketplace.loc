@@ -37,7 +37,7 @@
                     @auth
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="#">Категории</a>
+                          <a class="nav-link active" aria-current="page" href="{{route('categories.index')}}">Категории</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Товары</a>

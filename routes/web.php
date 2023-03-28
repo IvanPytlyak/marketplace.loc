@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -37,13 +37,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(
     [
         'middleware' => 'auth',
+        // 'namespace' => 'Admin',
+        'prefix' => "admin", // пересечение роутов route:list
+
     ],
     function () {
         Route::group(['middleware' => 'is_admin'], function () { // вторая проверка по 'middleware' / пользователь авторизирован/ он админ
             Route::get('/orders', [OrderController::class, 'index'])->name('home'); // на данный момент реализован в методе контроллера
         });
+        Route::resource('categories', 'App\Http\Controllers\CategoryController'); // ? ресурсный маршрут
     }
 );
+
+
 ## передаем перечень роутов в функцию для допуска к роутингу только авторизированных пользователей
 
 Route::post('/bascet/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add'); // не в групппе т.к. не даст добавлять товары в корзину
