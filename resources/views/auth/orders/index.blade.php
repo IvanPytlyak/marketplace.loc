@@ -53,18 +53,7 @@
                 </tr>
             @endforeach
             </tbody>
-            <tr>
-                <td>#</td>
-                <td>Ivan</td>
-                <td>5054245747</td>
-                <td>26.03.2023 23:26</td>
-                <td>1000</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a href="#" class="btn btn-success" type="button">Открыть</a>
-                    </div>
-                </td>
-            </tr>
+
         </table>
         {{-- {{ $orders->links() }} --}}
       

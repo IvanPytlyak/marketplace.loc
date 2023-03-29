@@ -43,7 +43,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Товары</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Заказы</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Заказы</a>
                           </li>
                         </ul>
                     @endauth

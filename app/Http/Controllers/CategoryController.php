@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+
+        $categories = Category::get();
+        return view('auth.categories.index', compact('categories')); // расположение blade
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.categories.form');
     }
 
     /**
@@ -35,7 +37,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all()); // из POST обработки все данные закинули в таблицу категорий
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -46,7 +49,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('auth.categories.show', compact('category'));
     }
 
     /**
