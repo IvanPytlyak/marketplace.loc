@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Категории')
+@section('title', 'Товары')
 
 @section('content')
 {{-- <div class="row justify-content-center"> --}}
-    {{-- <table class="table text-center"> --}}
+  
     <div class="col-md-12">
         {{-- <div class="col-md-12"> и удалить  <div class="row justify-content-center"> --}}
         <h1>Категории</h1>
@@ -21,20 +21,28 @@
                     Название
                 </th>
                 <th>
+                    Категория
+                </th>
+                <th>
+                    Цена
+                </th>
+                <th>
                     Действия
                 </th>
             </tr>
-            @foreach($categories as $category)
+            @foreach($products as $product)
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->code }}</td>
-                    <td>{{ $category->name }}</td>
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->code }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->category->name }}</td>
+                    <td>{{ $product->price }}</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <form action="{{ route('categories.destroy', $category) }}" method="POST">
+                            <form action="{{ route('products.destroy', $product) }}" method="POST">
                                 {{--  route('categories.destroy', $category) указан как имключение т.к. для открыть/редактировать роуты прописаны --}}
-                                <a class="btn btn-success" type="button" href="{{ route('categories.show', $category) }}">Открыть</a>
-                                <a class="btn btn-warning" type="button" href="{{ route('categories.edit', $category) }}">Редактировать</a>
+                                <a class="btn btn-success" type="button" href="{{ route('products.show', $product) }}">Открыть</a>
+                                <a class="btn btn-warning" type="button" href="{{ route('products.edit', $product) }}">Редактировать</a>
                                 @csrf
                                 @method('DELETE')
                                 <input class="btn btn-danger" type="submit" value="Удалить"></form>
@@ -46,7 +54,7 @@
         </table>
         {{-- {{ $categories->links() }} --}}
         <a class="btn btn-success" type="button"
-           href="{{ route('categories.create') }}">Добавить категорию</a>
+           href="{{ route('products.create') }}">Добавить категорию</a>
     </div>
 {{-- </div> --}}
 @endsection

@@ -3,8 +3,8 @@
 @section('title', 'Категория ' . $category->name)
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-10">
+{{-- <div class="row justify-content-center"> --}}
+    <div class="col-md-12">
         <h1>Категория Бытовая техника</h1>
         <table class="table">
             <tbody>
@@ -44,5 +44,5 @@
             </tbody>
         </table>
     </div>
-</div>
+{{-- </div> --}}
 @endsection

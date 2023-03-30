@@ -4,9 +4,9 @@
 @section('title', 'Заказы')
 
 @section('content')
-<div class="row justify-content-center">
+{{-- <div class="row justify-content-center"> --}}
     {{-- 7 -delete/ 9-col-md-12 --}}
-    <div class="col-md-10">
+    <div class="col-md-12">
      
         <h1>Заказы</h1>
         <table class="table">
@@ -58,5 +58,5 @@
         {{-- {{ $orders->links() }} --}}
       
     </div>
-</div>
+{{-- </div> --}}
 @endsection

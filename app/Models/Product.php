@@ -10,6 +10,15 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'category_id',
+        'name',
+        'description',
+        'code',
+        'image',
+        'price'
+    ];
+
     public function getCategory() // почему-то бьет ошибку хотя не используется
     {
         return Category::find($this->category_id);

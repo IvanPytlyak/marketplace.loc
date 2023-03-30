@@ -32,7 +32,7 @@ use App\Http\Controllers\Auth\LoginController;
 Auth::routes();
 // Route::get('/logout', 'Auth\LoginController@logout')->name('get-logout');
 Route::get('/logout',  [LoginController::class, 'logout'])->name('get-logout');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(
     [
@@ -46,6 +46,7 @@ Route::group(
             Route::get('/orders', [OrderController::class, 'index'])->name('home'); // на данный момент реализован в методе контроллера
         });
         Route::resource('categories', 'App\Http\Controllers\CategoryController'); //  ресурсный маршрут
+        Route::resource('products', 'App\Http\Controllers\ProductController'); //  ресурсный маршрут
     }
 );
 
