@@ -7,7 +7,7 @@
   
     <div class="col-md-12">
         {{-- <div class="col-md-12"> и удалить  <div class="row justify-content-center"> --}}
-        <h1>Категории</h1>
+        <h1>Товары</h1>
         <table class="table">
             <tbody>
             <tr>
@@ -40,7 +40,7 @@
                     <td>
                         <div class="btn-group" role="group">
                             <form action="{{ route('products.destroy', $product) }}" method="POST">
-                                {{--  route('categories.destroy', $category) указан как имключение т.к. для открыть/редактировать роуты прописаны --}}
+                                {{--  route('categories.destroy', $category) указан как иcключение т.к. для открыть/редактировать роуты прописаны --}}
                                 <a class="btn btn-success" type="button" href="{{ route('products.show', $product) }}">Открыть</a>
                                 <a class="btn btn-warning" type="button" href="{{ route('products.edit', $product) }}">Редактировать</a>
                                 @csrf
@@ -54,7 +54,7 @@
         </table>
         {{-- {{ $categories->links() }} --}}
         <a class="btn btn-success" type="button"
-           href="{{ route('products.create') }}">Добавить категорию</a>
+           href="{{ route('products.create') }}">Добавить товар</a>
     </div>
 {{-- </div> --}}
 @endsection

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Категория ' . $category->name)
+@section('title', 'Товар ' . $product->name)
 
 @section('content')
 {{-- <div class="row justify-content-center"> --}}
     <div class="col-md-12">
-        <h1>{{$category->name}}</h1>
+        <h1>{{$product->name}}</h1>
         <table class="table">
             <tbody>
             <tr>
@@ -18,29 +18,34 @@
             </tr>
             <tr>
                 <td>ID</td>
-                <td>{{ $category->id }}</td>
+                <td>{{ $product->id }}</td>
             </tr>
             <tr>
                 <td>Код</td>
-                <td>{{ $category->code }}</td>
+                <td>{{ $product->code }}</td>
             </tr>
             <tr>
                 <td>Название</td>
-                <td>{{ $category->name }}</td>
+                <td>{{ $product->name }}</td>
             </tr>
+            <tr>
+                <td>Категория</td>
+                <td>{{ $product->category->name}}</td>
+            </tr>
+            <tr>
             <tr>
                 <td>Описание</td>
-                <td>{{ $category->description }}</td>
+                <td>{{ $product->description}}</td>
             </tr>
             <tr>
+                <td>Цена</td>
+                <td>{{ $product->price }}</td>
+            </tr>
                 <td>Картинка</td>
                 <td><img src="http://laravel-diplom-1.rdavydov.ru/storage/categories/appliance.jpg"
                          height="240px"></td>
             </tr>
-            <tr>
-                <td>Кол-во товаров</td>
-                <td>{{ $category->products->count() }}</td>
-            </tr>
+            
             </tbody>
         </table>
     </div>

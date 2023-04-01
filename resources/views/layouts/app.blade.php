@@ -87,9 +87,11 @@
             </div>
         </nav>
 
-        <main class="ру-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <main class="ру-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 </html>

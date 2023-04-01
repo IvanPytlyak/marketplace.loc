@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('auth.products.form'); // роут на форму для создания
+        $categories = Category::get();
+        return view('auth.products.form', compact('categories')); // роут на форму для создания
     }
 
     /**
@@ -61,7 +63,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('auth.products.form', compact('product'));
+        $categories = Category::get();
+        return view('auth.products.form', compact('product', 'categories'));
     }
 
     /**
@@ -73,7 +76,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->udate($request->all());
+
+        $product->update($request->all());
         return redirect()->route('products.index');
     }
 
