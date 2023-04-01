@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -40,7 +41,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all()); // из POST обработки все данные закинули в таблицу категорий (создание позиций)
+        $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories // если папки нет то ее создаст
+        $params = $request->all();
+        $params['image'] = $path; // image -это уже столбец из БД
+        Product::create($params);
+
+        // Product::create($request->all()); // из POST обработки все данные закинули в таблицу категорий (создание позиций)
         return redirect()->route('products.index');
     }
 
@@ -76,8 +82,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        Storage::delete($product->image);
+        $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
+        $params = $request->all();
+        $params['image'] = $path; // image -это уже столбец из БД
 
-        $product->update($request->all());
+        $product->update($params);
+        // $product->update($request->all());
         return redirect()->route('products.index');
     }
 

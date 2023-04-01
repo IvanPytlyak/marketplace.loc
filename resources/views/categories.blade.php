@@ -10,7 +10,8 @@
         <!-- <a href="/{{route('category', $category->code) }}"> -->
         <!-- эта строка нужна для определения группы category.blade стр 14 при отображении группы карточек для части каталога (к примеру телефоны) -->
         <a href="/{{$category->code}}">
-            <img src="http://internet-shop.tmweb.ru/storage/categories/mobile.jpg">
+            <img src="{{Storage::url($category->image)}}">
+            {{-- http://internet-shop.tmweb.ru/storage/categories/mobile.jpg --}}
             <h2>{{$category->name}}</h2>
         </a>
         <p>
