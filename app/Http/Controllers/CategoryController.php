@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -36,11 +37,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request) // к кнопке добавить  // изменен Request на CategoryRequest для валидации
     {
-        $path = $request->file('image')->store('categories'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
         $params = $request->all();
-        $params['image'] = $path; // image -это уже столбец из БД
+        unset($params['image']);
+        if ($request->has('image')) { // если в запросе передается image
+            $path = $request->file('image')->store('categories'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
+            $params['image'] = $path; // image -это уже столбец из БД
+        };
+
         Category::create($params); // из POST обработки все данные закинули в таблицу категорий
         return redirect()->route('categories.index');
     }
@@ -74,12 +79,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category) // изменен Request на CategoryRequest для валидации
     {
-        Storage::delete($category->image);
-        $path = $request->file('image')->store('categories'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
         $params = $request->all();
-        $params['image'] = $path; // image -это уже столбец из БД
+        unset($params['image']);
+        if ($request->has('image')) {
+            Storage::delete($category->image);
+            $path = $request->file('image')->store('categories'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
+            $params['image'] = $path; // image -это уже столбец из БД // переименовываем картинку
+        }
+
 
         $category->update($params);
         return redirect()->route('categories.index');

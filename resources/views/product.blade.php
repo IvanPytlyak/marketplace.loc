@@ -16,4 +16,4 @@
         <input type="hidden" name="_token" value="0KxwZ7HpPxw3G7PiTxs34sxOEa3Yscv2l2EvcDYM">
     </form>
 
-    @endsection('content')
+@endsection

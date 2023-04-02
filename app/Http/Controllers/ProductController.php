@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -39,13 +40,16 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request) //Request  --->> ProductRequest
     {
-        $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories // если папки нет то ее создаст
         $params = $request->all();
-        $params['image'] = $path; // image -это уже столбец из БД
-        Product::create($params);
+        unset($params['image']);
 
+        if ($request->has('image')) { // если в запросе передается image
+            $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories // если папки нет то ее создаст
+            $params['image'] = $path; // image -это уже столбец из БД
+        }
+        Product::create($params);
         // Product::create($request->all()); // из POST обработки все данные закинули в таблицу категорий (создание позиций)
         return redirect()->route('products.index');
     }
@@ -80,13 +84,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product) //Request  --->> ProductRequest
     {
-        Storage::delete($product->image);
-        $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
         $params = $request->all();
-        $params['image'] = $path; // image -это уже столбец из БД
+        unset($params['image']);
 
+        if ($request->has('image')) {
+            Storage::delete($product->image); // Удалили из папки картинку
+            $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
+            $params['image'] = $path; // image -это уже столбец из БД
+        }
         $product->update($params);
         // $product->update($request->all());
         return redirect()->route('products.index');
