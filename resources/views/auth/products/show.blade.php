@@ -3,6 +3,8 @@
 @section('title', 'Товар ' . $product->name)
 
 @section('content')
+{{-- <link href="/css/bootstrap.min.css" rel="stylesheet"> --}}
+
 {{-- <div class="row justify-content-center"> --}}
     <div class="col-md-12">
         <h1>{{$product->name}}</h1>
@@ -42,12 +44,11 @@
                 <td>{{ $product->price }}</td>
             </tr>
                 <td>Картинка</td>
-                <td><img src="{{Storage::url($product->image)}}"
-                         height="240px"></td>
+                <td><img id="imagefix" src="{{Storage::url($product->image)}}"
+                         ></td>
             </tr>
-            
             </tbody>
         </table>
     </div>
-{{-- </div> --}}
+{{-- </div> height="240px"--}}
 @endsection
