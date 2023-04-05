@@ -89,7 +89,6 @@ class CategoryController extends Controller
             $params['image'] = $path; // image -это уже столбец из БД // переименовываем картинку
         }
 
-
         $category->update($params);
         return redirect()->route('categories.index');
     }

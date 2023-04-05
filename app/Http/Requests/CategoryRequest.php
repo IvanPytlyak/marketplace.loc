@@ -29,7 +29,7 @@ class CategoryRequest extends FormRequest
             'description' => 'required|min:5',
         ];
 
-        if ($this->route()->named('categories.store')) { // проверяем если роут ведет на создание новой группы // named- занаследованный метод
+        if ($this->route()->named('categories.store') || $this->route()->named('categories.update')) { // проверяем если роут ведет на создание новой группы // named- занаследованный метод / ('categories.store') ресурсный именованный маршрут с методом store из контроллера
             $rules['code'] .= '|unique:categories,code'; // code обязателен для заполнения // unique:categories,code - уникальное поле по указанному столбку //добавляем "$rules['code']" значение unique
         };
         return  $rules;

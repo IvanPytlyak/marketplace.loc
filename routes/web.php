@@ -45,8 +45,8 @@ Route::group(
         Route::group(['middleware' => 'is_admin'], function () { // вторая проверка по 'middleware' / пользователь авторизирован/ он админ
             Route::get('/orders', [OrderController::class, 'index'])->name('home'); // на данный момент реализован в методе контроллера
         });
-        Route::resource('categories', 'App\Http\Controllers\CategoryController'); //  ресурсный маршрут
-        Route::resource('products', 'App\Http\Controllers\ProductController'); //  ресурсный маршрут
+        Route::resource('categories', 'App\Http\Controllers\CategoryController'); //  ресурсный именованный маршрут
+        Route::resource('products', 'App\Http\Controllers\ProductController'); //  ресурсный именованный маршрут
     }
 );
 
