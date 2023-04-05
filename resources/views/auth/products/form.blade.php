@@ -34,7 +34,7 @@
                             </div>
                     @enderror
                         <input type="text" class="form-control" name="code" id="code" 
-                        value="@isset($product){{$product->code}} @endisset">
+                        value="{{old('code', isset($product) ? $product->code : null)}}">
                     </div>
                 </div>
                 <br>

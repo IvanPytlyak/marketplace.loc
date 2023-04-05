@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'code' => 'required|min:3|max:255',
+            'code' => 'required|min:3|max:255|unique:products,code',
             'name' => 'required|min:3|max:255',
             'price' => 'required|numeric|min:1',
             'description' => 'required|min:5',
@@ -32,10 +32,14 @@ class ProductRequest extends FormRequest
         ];
 
 
-        if ($this->route()->named('products.store') || $this->route()->named('products.update')) {
-            $rules['code'] .= '|unique:products,code';
-            return  $rules;
-        }
+        // if ($this->route()->named('products.store') || $this->route()->named('products.update')) {
+        //     $rules['code'] .= '|unique:products,code'; // code обязателен для заполнения // unique:categories,code - уникальное поле по указанному столбку //добавляем "$rules['code']" значение unique
+        //     return  $rules;
+        // }
+        if ($this->route()->named('products.update')) { // проверяем если роут ведет на создание новой группы // named- занаследованный метод / ('categories.store') ресурсный именованный маршрут с методом store из контроллера
+            $rules['code'] .=  ',' . $this->route()->parameter('product')->id; // универсальная, под капотом прибавляет к коду категории ее id  что дает возможность сохранять изменения в других полях, в пративном случае будет бить ошибку, что такой код уже используется 14 лекция
+        };
+        return  $rules;
     }
 
     public function messages()

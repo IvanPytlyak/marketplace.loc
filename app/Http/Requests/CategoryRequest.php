@@ -24,13 +24,13 @@ class CategoryRequest extends FormRequest
     public function rules() // вставляем условия валидации
     {
         $rules = [
-            'code' => 'required|min:3|max:255',
+            'code' => 'required|min:3|max:255|unique:categories,code',
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:5',
         ];
 
-        if ($this->route()->named('categories.store') || $this->route()->named('categories.update')) { // проверяем если роут ведет на создание новой группы // named- занаследованный метод / ('categories.store') ресурсный именованный маршрут с методом store из контроллера
-            $rules['code'] .= '|unique:categories,code'; // code обязателен для заполнения // unique:categories,code - уникальное поле по указанному столбку //добавляем "$rules['code']" значение unique
+        if ($this->route()->named('categories.update')) { // проверяем если роут ведет на создание новой группы // named- занаследованный метод / ('categories.store') ресурсный именованный маршрут с методом store из контроллера
+            $rules['code'] .=  ',' . $this->route()->parameter('category')->id; // универсальная, под капотом прибавляет к коду категории ее id  что дает возможность сохранять изменения в других полях, в пративном случае будет бить ошибку, что такой код уже используется 14 лекция
         };
         return  $rules;
     }

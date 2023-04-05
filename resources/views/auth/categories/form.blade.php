@@ -36,7 +36,8 @@
                             </div>
                         @enderror
                         <input type="text" class="form-control" name="code" id="code" 
-                        value="@isset($category){{$category->code}} @endisset">
+                        value="{{old('code', isset($category) ? $category->code : null)}}">
+                        {{-- old в случае некорректного заполнения поля возвращает данные по условию isset($category) --}}
                     </div>
                 </div>
                 <br>
