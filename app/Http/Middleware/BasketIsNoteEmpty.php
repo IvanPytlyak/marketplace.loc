@@ -17,14 +17,14 @@ class BasketIsNoteEmpty
      */
     public function handle(Request $request, Closure $next)
     {
-        $orderId = session('orderId');
+        $orderId = session('orderId'); //orderId - идентификатор заказа, можно написать что угодно
         if (!is_null($orderId)) {
             $order = Order::findOrFail($orderId);
-            if ($order->products->count() === 0) {
-                session()->flash('warning', 'Ваша корзина пуста');
-                return redirect()->route('index');
+            if ($order->products->count() > 0) {
+                return $next($request); // Это означает, что если заказ существует в сессии и не содержит продуктов, то цепочка middleware перейдет к следующему middleware или к обработке запроса, если более нет промежуточных обработчиков.
             }
         }
-        return $next($request);
+        session()->flash('warning', 'Ваша корзина пуста');
+        return redirect()->route('index');
     }
 }

@@ -37,7 +37,7 @@
                     </ul>
 
                     @auth
-                    <ul class="navbar-nav">
+                    <ul class="nav navbar-nav">
                         <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{{route('categories.index')}}">Категории</a>
                         </li>
