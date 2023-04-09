@@ -22,9 +22,14 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index() // отображение всех заказов
     {
         $orders = Order::where('status', 1)->get();
         return view('auth.orders.index', compact('orders'));
+    }
+
+    public function show(Order $order)
+    {
+        return view('auth.orders.show', compact('order'));
     }
 }

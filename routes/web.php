@@ -36,7 +36,7 @@ Route::get('/logout',  [LoginController::class, 'logout'])->name('get-logout');
 
 Route::group(
     [
-        'middleware' => 'auth',
+        'middleware' => 'auth', // авторизованный пользователь
         // 'namespace' => 'Admin',
         'prefix' => "admin", // пересечение роутов route:list
 
@@ -44,6 +44,7 @@ Route::group(
     function () {
         Route::group(['middleware' => 'is_admin'], function () { // вторая проверка по 'middleware' / пользователь авторизирован/ он админ
             Route::get('/orders', [OrderController::class, 'index'])->name('home'); // на данный момент реализован в методе контроллера
+            Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
         });
         Route::resource('categories', 'App\Http\Controllers\CategoryController'); //  ресурсный именованный маршрут
         Route::resource('products', 'App\Http\Controllers\ProductController'); //  ресурсный именованный маршрут
