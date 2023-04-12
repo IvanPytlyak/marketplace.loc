@@ -4,10 +4,11 @@ use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderController as AdminOrderController;
+use App\Http\Controllers\Person\OrderController as PersonOrderController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\ResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,27 +30,57 @@ use App\Http\Controllers\Auth\LoginController;
 // Route::get('/', function () {
 //     return view('index'); // view/index.blade.php
 // });
-Auth::routes();
+
+
+
+
+
+
+
+Auth::routes([
+    // 'reset' => false, // в  случае reset установлено в false, что означает, что маршруты для сброса пароля не будут созданы.
+    // 'confirm' => false,
+    // 'verify' => false
+]);
+
+
+Route::get('reset', [ResetController::class, 'reset'])->name('reset');
+
+
+
 // Route::get('/logout', 'Auth\LoginController@logout')->name('get-logout');
 Route::get('/logout',  [LoginController::class, 'logout'])->name('get-logout');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(
-    [
-        'middleware' => 'auth', // авторизованный пользователь
-        // 'namespace' => 'Admin',
-        'prefix' => "admin", // пересечение роутов route:list
+Route::middleware(['auth'])->group(function () { // проверка на авторизацию пользователя/ необходимо для разделения админ/не админ/не авторизированный
+    Route::group([
+        'prefix' => 'person', //определяет префикс (prefix) для URL-адресов
+        'namespace' => 'Person',
+        'as' => 'person.', // определяет префикс (prefix) для именованных маршрутов
+    ], function () {
+        Route::get('/orders', [PersonOrderController::class, 'index'])->name('orders.index'); // на данный момент реализован в методе контроллера
+        Route::get('/orders/{order}', [PersonOrderController::class, 'show'])->name('orders.show');
+    });
 
-    ],
-    function () {
-        Route::group(['middleware' => 'is_admin'], function () { // вторая проверка по 'middleware' / пользователь авторизирован/ он админ
-            Route::get('/orders', [OrderController::class, 'index'])->name('home'); // на данный момент реализован в методе контроллера
-            Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
-        });
-        Route::resource('categories', 'App\Http\Controllers\CategoryController'); //  ресурсный именованный маршрут
-        Route::resource('products', 'App\Http\Controllers\ProductController'); //  ресурсный именованный маршрут
-    }
-);
+    Route::group(
+        [
+            // 'middleware' => 'auth', // авторизованный пользователь
+            // 'namespace' => 'Admin',
+            'prefix' => "admin", // пересечение роутов route:list
+
+        ],
+        function () {
+            Route::group(['middleware' => 'is_admin'], function () { // вторая проверка по 'middleware' / пользователь авторизирован/ он админ
+                Route::get('/orders', [AdminOrderController::class, 'index'])->name('home'); // на данный момент реализован в методе контроллера
+                Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+            });
+            Route::resource('categories', 'App\Http\Controllers\CategoryController'); //  ресурсный именованный маршрут
+            Route::resource('products', 'App\Http\Controllers\ProductController'); //  ресурсный именованный маршрут
+        }
+    );
+});
+
+
 
 
 ## передаем перечень роутов в функцию для допуска к роутингу только авторизированных пользователей

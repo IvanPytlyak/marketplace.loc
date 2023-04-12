@@ -30,7 +30,7 @@ class Order extends Model
             $this->phone = $phone;
             // $this->email = $email;
             $this->save();
-            session()->forget('orderId');
+            session()->forget('orderId'); // удаляет значение ключа 'orderId' из сессии текущего пользователя.
             return true;
         } else
             return false;
