@@ -29,6 +29,15 @@ return [
     */
 
     'disks' => [
+        'reset' => [ // используем далее в resetController
+            'driver' => 'local',
+            'root' => base_path('resources/images'), // base_path возвращает абсолютный путь к корневой директории проекта
+        ],
+
+        // добавление нового соединения диска, в данном случае для хранения images
+        // В файле filesystems.php в Laravel 'root' => app_path() означает, что корневая директория для файла системы будет app_path()
+        // Таким образом, когда 'root' => app_path() используется в файле filesystems.php, это означает, что корневая директория для файловой системы будет расположена внутри директории app.
+        // Все пути к файлам и директориям, связанные с этой файловой системой, будут относительно этой корневой директории.
 
         'local' => [
             'driver' => 'local',
@@ -39,7 +48,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
