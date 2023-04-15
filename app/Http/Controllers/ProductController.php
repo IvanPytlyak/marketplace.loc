@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::paginate(15); //для разбиения результатов запроса на страницы
         return view('auth.products.index', compact('products'));
         // $products = Product::get();
 
@@ -33,6 +33,7 @@ class ProductController extends Controller
         $categories = Category::get();
         return view('auth.products.form', compact('categories')); // роут на форму для создания
     }
+    // Метод create() в контроллере используется для отображения формы создания нового ресурса. Этот метод возвращает вид, содержащий HTML-код формы, которая позволяет пользователю ввести информацию о новом товаре. После заполнения и отправки этой формы данные обрабатываются методом store()
 
     /**
      * Store a newly created resource in storage.
@@ -40,7 +41,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request) //Request  --->> ProductRequest
+    public function store(ProductRequest $request) //Request  --->> ProductRequest //создание нового продукта
     {
         $params = $request->all();
         unset($params['image']);
@@ -49,6 +50,13 @@ class ProductController extends Controller
             $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories // если папки нет то ее создаст
             $params['image'] = $path; // image -это уже столбец из БД
         }
+
+        foreach (['hit', 'new', 'recommend'] as $fieldName) {
+            if (isset($params[$fieldName])) {
+                $params[$fieldName] = 1;
+            }
+        }; // нужно в виду того, что чекбокс возвращает значение 'on' а не 1
+
         Product::create($params);
         // Product::create($request->all()); // из POST обработки все данные закинули в таблицу категорий (создание позиций)
         return redirect()->route('products.index');
@@ -94,6 +102,13 @@ class ProductController extends Controller
             $path = $request->file('image')->store('products'); //путь к созданному файлу /'image'- название поля из формы отправки стр 56 form.blade / store('categories') сохраняет в папку categories
             $params['image'] = $path; // image -это уже столбец из БД
         }
+
+        foreach (['hit', 'new', 'recommend'] as $fieldName) {
+            if (isset($params[$fieldName])) {
+                $params[$fieldName] = 1;
+            }
+        };
+
         $product->update($params);
         // $product->update($request->all());
         return redirect()->route('products.index');

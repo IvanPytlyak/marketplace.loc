@@ -16,7 +16,10 @@ class Product extends Model
         'description',
         'code',
         'image',
-        'price'
+        'price',
+        'new',
+        'hit',
+        'recommend'
     ];
 
     public function getCategory() // почему-то бьет ошибку хотя не используется
@@ -32,5 +35,18 @@ class Product extends Model
     public function getPriceForCount($count)
     {
         return $this->price * $count;
+    }
+
+    public function isHit()
+    {
+        return $this->hit === 1;
+    }
+    public function isNew()
+    {
+        return $this->new === 1;
+    }
+    public function isRecommend()
+    {
+        return $this->recommend === 1;
     }
 }
