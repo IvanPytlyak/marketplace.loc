@@ -51,11 +51,11 @@ class ProductController extends Controller
             $params['image'] = $path; // image -это уже столбец из БД
         }
 
-        foreach (['hit', 'new', 'recommend'] as $fieldName) {
-            if (isset($params[$fieldName])) {
-                $params[$fieldName] = 1;
-            }
-        }; // нужно в виду того, что чекбокс возвращает значение 'on' а не 1
+        // foreach (['hit', 'new', 'recommend'] as $fieldName) { // Мутатор настроен аналогично update, поэтому можно удалить
+        //     if (isset($params[$fieldName])) {
+        //         $params[$fieldName] = 1;
+        //     }
+        // }; // нужно иметь в виду того, что чекбокс возвращает значение 'on' а не 1
 
         Product::create($params);
         // Product::create($request->all()); // из POST обработки все данные закинули в таблицу категорий (создание позиций)
@@ -103,9 +103,16 @@ class ProductController extends Controller
             $params['image'] = $path; // image -это уже столбец из БД
         }
 
+        // foreach (['hit', 'new', 'recommend'] as $fieldName) { // Мутатор, аналог кода описан в product.php методах setNewAttribute/setHitAttribute/setRecommendAttribute 
+        //     if (isset($params[$fieldName])) {
+        //         $params[$fieldName] = 1;
+        //     } else {
+        //         $params[$fieldName] = 0;
+        //     }
+        // };
         foreach (['hit', 'new', 'recommend'] as $fieldName) {
-            if (isset($params[$fieldName])) {
-                $params[$fieldName] = 1;
+            if (!isset($params[$fieldName])) {
+                $params[$fieldName] = 0;
             }
         };
 

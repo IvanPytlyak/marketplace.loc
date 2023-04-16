@@ -8,7 +8,7 @@
 
     <div class="col-md-12">
         @isset($product)
-        <h1>Редактировать Товар<b>{{$product->name}}</b> </h1>
+        <h1>Редактировать Товар <b>{{$product->name}}</b> </h1>
             @else
                 <h1>Добавить Товар</h1>
     @endisset

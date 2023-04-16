@@ -49,4 +49,26 @@ class Product extends Model
     {
         return $this->recommend === 1;
     }
+
+    public function setNewAttribute($value)
+    {
+        $this->attributes['new'] = $value === 'on' ? 1 : 0;
+        // $value = on
+        // = нижеуказанному коду из productController/update
+        // foreach (['hit', 'new', 'recommend'] as $fieldName) {
+        //     if (isset($params[$fieldName])) {
+        //         $params[$fieldName] = 1;
+        //     } else {
+        //         $params[$fieldName] = 0;
+        //     }
+        // };
+    }
+    public function setHitAttribute($value)
+    {
+        $this->attributes['hit'] = $value === 'on' ? 1 : 0;
+    }
+    public function setRecommendAttribute($value)
+    {
+        $this->attributes['recommend'] = $value === 'on' ? 1 : 0;
+    }
 }

@@ -1,7 +1,16 @@
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-        <!-- <div class="labels">
-        </div> -->
+        <div class="labels">
+            @if ($product->isNew())
+                <span class="badge badge-success">Новинка</span>
+            @endif
+            @if ($product->isRecommend())
+                <span class="badge badge-warning">Рекомендуемые</span>
+            @endif
+            @if ($product->isHit())
+                <span class="badge badge-danger">Хит продаж</span>
+            @endif
+        </div>
         <img src="{{Storage::url($product->image)}}" alt="iPhone 5SE">
         {{-- http://internet-shop.tmweb.ru/storage/products/iphone_5.jpg --}}
         <div class="caption">
