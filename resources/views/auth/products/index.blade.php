@@ -52,9 +52,8 @@
             @endforeach
             </tbody>
         </table>
-        {{-- {{ $categories->links() }} --}}
+        {{ $products->links('pagination::bootstrap-4') }}
         <a class="btn btn-success" type="button"
            href="{{ route('products.create') }}">Добавить товар</a>
-    </div>
-{{-- </div> --}}
+        </div>
 @endsection

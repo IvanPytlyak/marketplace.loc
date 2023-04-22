@@ -15,7 +15,7 @@ class OrderController extends Controller
 
     public function index() // отображение всех заказов // index - blade
     {
-        $orders = Auth::user()->orders()->where('status', 1)->get(); // orders() метод user
+        $orders = Auth::user()->orders()->where('status', 1)->paginate(10); // orders() метод user
         return view('auth.orders.index', compact('orders'));
     }
 

@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use DebugBar\DebugBar;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+// use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Http\Requests\ProductsFilterRequest;
 
 class MainController extends Controller
 {
-    public function index(Request $request)
+    public function index(ProductsFilterRequest $request)
     {
-        $productsQuery = Product::query();
+        // dd(($request->ip())); // узнаем ip
 
-        if ($request->filled('hit')) {
-            $productsQuery->where('hit', '=', '1');
-        }
-        if ($request->filled('new')) {
-            $productsQuery->where('new', '=', '1');
-        }
-        if ($request->filled('recommend')) {
-            $productsQuery->where('recommend', '=', '1');
-        }
+        // Log::channel('daily')->info($request->ip()); //логирование ip // по выбранному маршруту single -пишет все в один файл, daily- каждый день новый файл, info/error/warninh- типы, определен в config/logging.php, IP() -дефолтный метод
 
-        // if ($request->has('recommend')) { // аналог
-        //     $productsQuery->where('recommend', 1);
-        // }
+        // \Debugbar::info('my info'); // '\'- нужно добавлять (баг)
+
+        $productsQuery = Product::query(); // n+1
+        // $productsQuery = Product::with('category'); // оптимизация запроса, группирует все данные category в коллекцию и сверяет по всей коллекции а не по-элементно как на строку выше
 
         if ($request->filled('price_from')) {
             $productsQuery->where('price', '>=', $request->price_from); //фильтр условие
@@ -32,6 +29,30 @@ class MainController extends Controller
         if ($request->filled('price_to')) {
             $productsQuery->where('price', '<=', $request->price_to); //фильтр условие
         }
+
+        // foreach (['hit', 'new', 'recommend'] as $field) {
+        //     if ($request->has($field)) {
+        //         $productsQuery->where($field, 1);
+        //     // } else {
+        //     //     $productsQuery->orWhere($field, 0);
+        //     // }
+        // }
+
+        if ($request->has('hit')) {
+            $productsQuery->where('hit', 1);
+        }
+        if ($request->has('new')) {
+            $productsQuery->where('new', 1);
+        }
+        if ($request->has('recommend')) {
+            $productsQuery->where('recommend', 1);
+        }
+
+        // if ($request->has('recommend')) { // аналог
+        //     $productsQuery->where('recommend', 1);
+        // }
+
+
 
         $products = $productsQuery->paginate(6); //->withPath("?" . $request->getQueryString()); // =get() с фиксированным / withPath позволяет переносить значения фильтров на другую страницу путем добавления пагинации страниц в get запрос. ->getQueryString() дефолтный метод
         // $urlWithFilters = url()->current() . '?' . http_build_query($request->except('page')); // http_build_query — Генерирует URL-кодированную строку запроса // Метод except возвращает все элементы коллекции, кроме тех, у которых есть указанные ключи:

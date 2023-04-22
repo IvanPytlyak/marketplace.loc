@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(15); //для разбиения результатов запроса на страницы
+        $products = Product::paginate(10); //для разбиения результатов запроса на страницы
         return view('auth.products.index', compact('products'));
         // $products = Product::get();
 
