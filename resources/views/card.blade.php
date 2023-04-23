@@ -11,7 +11,7 @@
                 <span class="badge badge-danger">Хит продаж</span>
             @endif
         </div>
-        <img src="{{Storage::url($product->image)}}" alt="iPhone 5SE">
+        <img src="{{Storage::url($product->image)}}" alt="">
         {{-- http://internet-shop.tmweb.ru/storage/products/iphone_5.jpg --}}
         <div class="caption">
             <h3>{{$product->name}}</h3>

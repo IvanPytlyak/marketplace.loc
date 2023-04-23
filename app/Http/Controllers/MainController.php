@@ -76,7 +76,7 @@ class MainController extends Controller
         // dd($category);
     }
 
-    public function product($product, $category)
+    public function product($category, $product)
     {
         // dump($product); //dd(request())
         return view('product', ['product' => $product]);

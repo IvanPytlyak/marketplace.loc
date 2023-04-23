@@ -11,7 +11,7 @@
         {{ $category->description}}
     </p>
     <div class="row">
-        @foreach ($category->products as $product)
+        @foreach ($category->products()->with('category')->get() as $product)
         @include('card' , compact('product'))
         @endforeach
     </div>

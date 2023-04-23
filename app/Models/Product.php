@@ -19,7 +19,8 @@ class Product extends Model
         'price',
         'new',
         'hit',
-        'recommend'
+        'recommend',
+        'count'
     ];
 
     public function getCategory() // почему-то бьет ошибку хотя не используется
@@ -70,5 +71,10 @@ class Product extends Model
     public function setRecommendAttribute($value)
     {
         $this->attributes['recommend'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function isAvailable()
+    {
+        return $this->count > 0; //условие return
     }
 }
