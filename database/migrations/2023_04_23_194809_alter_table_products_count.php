@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->unsignedInteger('count')->default(0);
             // положительное
+            $table->softDeletes(); //дефолтный метод ("мягкое удаление")
         });
     }
 
@@ -27,7 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->drop('count');
+            $table->dropColumn('count');
+            $table->dropColumn('deleted_at'); // deleted_at - агрумент из метода softDeletes
         });
     }
 };

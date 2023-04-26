@@ -16,7 +16,7 @@ class Order extends Model
     public function getFullPrice()
     {
         $summ = 0;
-        foreach ($this->products as $product) {
+        foreach ($this->products()->withTrashed()->get() as $product) { //$this->products()->withTrashed()->get() - получаем список продуктов с учетом удаленных ранее
             $summ += $product->getPriceForCount($product->pivot->count);
         }
         return $summ;

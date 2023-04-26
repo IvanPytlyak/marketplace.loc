@@ -76,9 +76,9 @@ class MainController extends Controller
         // dd($category);
     }
 
-    public function product($category, $product)
+    public function product($category, $productCode) // в отличии от category если сделать аналогично, вернет просто 1 продукт вместо объекта, поэтому нужно через scoupe перенастроить запрос к БД 
     {
-        // dump($product); //dd(request())
-        return view('product', ['product' => $product]);
+        $product = Product::withTrashed()->byCode($productCode)->first(); //withTrashed()-> с учетом удаленных
+        return view('product', compact('product'));
     }
 }

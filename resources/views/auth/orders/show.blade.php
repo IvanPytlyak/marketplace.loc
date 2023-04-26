@@ -20,10 +20,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($order->products as $product)                       
+                        @foreach ($products as $product)                       
                             <tr>
                                 <td>
-                                    <a href="{{route('product', [$product->category, $product])}}">
+                                    <a href="{{route('product', [$product->category->code, $product->code])}}">
                                         {{-- {{route('product', $product)}} --}}
                                         <img height="56px"
                                              src="{{Storage::url($product->image)}}">

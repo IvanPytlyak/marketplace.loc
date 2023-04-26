@@ -12,13 +12,16 @@
             @endif
         </div>
         <img src="{{Storage::url($product->image)}}" alt="">
-        {{-- http://internet-shop.tmweb.ru/storage/products/iphone_5.jpg --}}
         <div class="caption">
             <h3>{{$product->name}}</h3>
             <p>{{$product->price}}</p>
             <p>
             <form action="{{route('basket-add', $product->id)}}" method="POST">
+                @if ($product->isAvailable())
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
+                @else
+                 Не доступен
+                @endif
                 <!-- {{$product->getCategory()->name}} -->
                 <!-- {{$product->category->name}} -->
                 <!--category отсюда  Product.php return $this->belongsTo(Category::class); -->
