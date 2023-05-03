@@ -29,7 +29,7 @@ class Order extends Model
             $this->name = $name;
             $this->phone = $phone;
             // $this->email = $email;
-            $this->save();
+            $this->save(); // сохраняет в БД
             session()->forget('orderId'); // удаляет значение ключа 'orderId' из сессии текущего пользователя.
             return true;
         } else

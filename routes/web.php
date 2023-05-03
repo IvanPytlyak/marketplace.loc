@@ -85,12 +85,13 @@ Route::middleware(['auth'])->group(function () { // проверка на авт
 
 ## передаем перечень роутов в функцию для допуска к роутингу только авторизированных пользователей
 
-Route::post('/bascet/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add'); // не в групппе т.к. не даст добавлять товары в корзину
+Route::post('/bascet/add/{product}', [BasketController::class, 'basketAdd'])->name('basket-add'); // не в групппе т.к. не даст добавлять товары в корзину // id заменен на product, т.к. в bascetController изменен атрибут передающийся в функцию basketAdd(product) на basketAdd(Product product) и теперь в роут прокидываем id продукта через product  
+// Route::post('/bascet/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add'); // было 
 Route::group([
     'middleware' => 'basket_note_empty',
     // 'prefix' => 'bascet' // дает возможность в нижних роутах убрать постоянную часть 'basket'
 ], function () {
-    Route::post('/bascet/remove/{id}', [BasketController::class, 'basketRemove'])->name('basket-remove');
+    Route::post('/bascet/remove/{product}', [BasketController::class, 'basketRemove'])->name('basket-remove'); // аналогично роуту add (смотри описание)
     Route::get('/basket', [BasketController::class, 'basket'])->name('basket');
     Route::get('/basket/place', [BasketController::class, 'basketPlace'])->name('basket-place');
     Route::post('/basket/place', [BasketController::class, 'basketConfirm'])->name('basket-confirm');

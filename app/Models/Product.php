@@ -89,5 +89,5 @@ class Product extends Model
     { // scope -слово-вызов  ByCode =рандомное имя функции
         //$query - экземпляр запроса
         return $query->where('code', $code);
-    }
+    } //Scope позволяет расширять запрос query les20 4:30
 }
