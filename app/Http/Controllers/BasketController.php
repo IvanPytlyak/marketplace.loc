@@ -28,7 +28,12 @@ class BasketController extends Controller
         //     return redirect()->route('index');
         // }
         // $order = Order::findOrFail($orderId);
-        $order = (new Basket())->getOrder();
+        $basket = new Basket();
+        $order = $basket->getOrder();
+        if (!$basket->countAvalible()) {
+            session()->flash('warning', 'Товар не доступен для заказа в полном объеме');
+            return redirect()->route('basket');
+        }
         return view('order', compact('order'));
     }
 
@@ -45,7 +50,7 @@ class BasketController extends Controller
         if ((new Basket())->saveOrder($request->name, $request->phone)) { // ранее было if ($succsess)
             session()->flash('success', 'Ваш заказ принят в обработку');
         } else {
-            session()->flash('warning', 'Случилась ошибка');
+            session()->flash('warning', 'Товар не доступен для заказа в полном объеме');
         }
         return redirect()->route('index');
     }
@@ -53,53 +58,62 @@ class BasketController extends Controller
 
     public function basketAdd(Product $product) // $productId
     {
-        $orderId = session('orderId'); // как это работает? 'orderId'? // =если сессия активна?
-        if (is_null($orderId)) { // не проходим через middleware поэтому не удаляем
-            $order = Order::create(); //  стояло  $order = Order::create()->id;
-            session(
-                ['orderId' => $order->id,]
-            );
-        } else {
-            $order = Order::findOrFail($orderId);
-        }
-        if ($order->products->contains($product->id)) {  // Laravel contains() и containsStrict(): проверьте, содержит ли коллекция Laravel значение Value  
-            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot; //->pivot дает доступ к данным определенным модели при расширеной связи по belongsToMany 
-            $pivotRow->count++;
-            $pivotRow->update();
-        } else {
-            $order->products()->attach($product->id); //attach добавляет полученный productId в таблицу products->id
-        }
-        // return view('basket', compact('order'));
+        $result = (new Basket(true))->addProduct($product); // true - аргумент _construct Basket
+        if ($result) {
+            // $orderId = session('orderId'); // как это работает? 'orderId'? // =если сессия активна? //  переопределена в _construct 
+            // if (is_null($orderId)) { // не проходим через middleware поэтому не удаляем
+            //     $order = Order::create(); //  стояло  $order = Order::create()->id;
+            //     session(
+            //         ['orderId' => $order->id,]
+            //     );
+            // } else {
+            //     $order = Order::findOrFail($orderId);
+            // }
 
-        if (Auth::check()) {
-            $order->user_id = Auth::id();
-            $order->save();
-        }
+            // if ($order->products->contains($product->id)) {  // Laravel contains() и containsStrict(): проверьте, содержит ли коллекция Laravel значение Value  
+            //     $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot; //->pivot дает доступ к данным определенным модели при расширеной связи по belongsToMany 
+            //     $pivotRow->count++;
+            //     $pivotRow->update();
+            // } else {
+            //     $order->products()->attach($product->id); //attach добавляет полученный productId в таблицу products->id
+            // }
+            // // return view('basket', compact('order'));
 
-        // $product = Product::find($productId);
-        session()->flash('success', 'Добавлен товар ' . $product->name);
-        return redirect()->route('basket'); // редирект,теперь при обновлении страницы не срабатывает повторное добавление товара
+            // if (Auth::check()) {
+            //     $order->user_id = Auth::id();
+            //     $order->save();
+            // }
+
+            // $product = Product::find($productId);
+            session()->flash('success', 'Добавлен товар ' . $product->name);
+            return redirect()->route('basket'); // редирект,теперь при обновлении страницы не срабатывает повторное добавление товара
+        } else {
+            session()->flash('warning', 'Товар ' . $product->name . ' не доступен для заказа');
+            return redirect()->route('basket');
+        }
     }
 
     public function basketRemove(Product $product)
     {
-        $basket = new Basket();
+        // $basket = new Basket();
+        // $order = $basket->getOrder();
+        (new Basket())->removeProduct($product);
         $orderId = session('orderId');
         // if (is_null($orderId)) {    // в middleware Basketnotempty уже задано условие, что корзина не пуста
         //     return redirect()->route('basket');
         // }
         $order = Order::findOrFail($orderId);
 
-        if ($order->products->contains($product->id)) {  // Laravel contains() и containsStrict(): проверьте, содержит ли коллекция Laravel значение Value  
-            $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot; //->pivot дает доступ к данным определенным модели при расширеной связи по belongsToMany 
-            if ($pivotRow->count < 2) {
-                $order->products()->detach($product->id); // products() - метод Order = $order->products->id // поиск по связанной таблице и удаление
+        // if ($order->products->contains($product->id)) {  // Laravel contains() и containsStrict(): проверьте, содержит ли коллекция Laravel значение Value  
+        //     $pivotRow = $order->products()->where('product_id', $product->id)->first()->pivot; //->pivot дает доступ к данным определенным модели при расширеной связи по belongsToMany 
+        //     if ($pivotRow->count < 2) {
+        //         $order->products()->detach($product->id); // products() - метод Order = $order->products->id // поиск по связанной таблице и удаление
 
-            } else {
-                $pivotRow->count--;
-                $pivotRow->update();
-            }
-        }
+        //     } else {
+        //         $pivotRow->count--;
+        //         $pivotRow->update();
+        //     }
+        // }
         // $product = Product::findOrFail($productId);
         session()->flash('warning', 'Удален товар ' . $product->name);
         return redirect()->route('basket');
