@@ -8,7 +8,7 @@
     {{-- 7 -delete/ 9-col-md-12 --}}
     <div class="col-md-12">
      
-        <h1>Заказы</h1>
+        <h1 id="h1_fix">Заказы</h1>
         <table class="table">
             <tbody>
             <tr>

@@ -7,7 +7,7 @@
   
     <div class="col-md-12">
         {{-- <div class="col-md-12"> и удалить  <div class="row justify-content-center"> --}}
-        <h1>Товары</h1>
+        <h1 id="h1_fix">Товары</h1>
         <table class="table">
             <tbody>
             <tr>

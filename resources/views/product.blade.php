@@ -6,7 +6,7 @@
 
     <h2>{{$product->name}}</h2>
     <p>Цена: <b>{{$product->price}} руб.</b></p>
-    <img src="{{Storage::url($product->image)}}">
+    <img src="{{Storage::url($product->image)}}" id="product_card_fix">
     <p>{{$product->description}}</p>
 
     <form action="{{route('basket-add', $product)}}" method="POST">

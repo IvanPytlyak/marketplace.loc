@@ -36,7 +36,7 @@ class Basket
 
     public function saveOrder($name, $phone)
     {
-        if (!$this->countAvalible()) {
+        if (!$this->countAvalible(true)) {
             return false;
         }
         return $this->order->saveOrder($name, $phone); // вызывает не сам себя а метод Order Model просто название одинаковое
@@ -44,12 +44,18 @@ class Basket
     }
 
 
-    public function countAvalible()
+    public function countAvalible($updateCount = false)
     {
         foreach ($this->order->products as $orderProduct) {
             if ($orderProduct->count < $this->getPivotRow($orderProduct)->count) { // кол-во из БД и количество в корзине сравниваем
                 return false;
             }
+            if ($updateCount) {
+                $orderProduct->count -= $this->getPivotRow($orderProduct)->count;
+            }
+        }
+        if ($updateCount) {
+            $this->order->products->map->save();
         }
         return true;
     }

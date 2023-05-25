@@ -1,4 +1,50 @@
 #imagefix {
     /* height: 240px; */
+   
     max-height: 240px;
+}
+
+#imagefix_order {
+  
+    max-height: 56px;
+}
+
+#app {
+    margin-top: -40px;
+    /* padding-top: -40px; */
+}
+
+#window_wrapper {
+    margin-top: 10%;
+}
+
+/* #color_switch {
+    background-color: rgb(51,122,183);
+    color: black;
+} */
+
+/* #window_background {
+    background: url(/public/storage/background/vivid-blurred-colorful-background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment:fixed;  
+} */
+
+#window_background {
+    min-height: 100%;
+    min-width: 640px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+#product_card_fix{
+max-width: 300px;
+}
+
+#h1_fix {
+    margin-top: 5%;
 }

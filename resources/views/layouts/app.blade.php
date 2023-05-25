@@ -20,6 +20,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+    <img src="/public/storage/background/vivid-blurred-colorful-background.jpg" alt="" id="window_background">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -91,12 +92,13 @@
                 </div>
             </div>
         </nav>
-
-        <div class="container">
-            <main class="ру-4">
-                @yield('content')
-            </main>
-        </div>
+        
+            <div class="container">
+                <main class="ру-4">
+                    @yield('content')
+                </main>
+            </div>
     </div>
+
 </body>
 </html>
