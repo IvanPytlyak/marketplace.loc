@@ -5,7 +5,7 @@
 @section('content')
 {{-- <div class="row justify-content-center"> --}}
     <div class="col-md-12">
-        <h1>{{$category->name}}</h1>
+        <h1 id="h1_fix">{{$category->name}}</h1>
         <table class="table">
             <tbody>
             <tr>

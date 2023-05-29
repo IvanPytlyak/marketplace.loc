@@ -17,21 +17,21 @@ class ProductsTableSeeder extends Seeder
     {
         DB::table('products')->insert([
             [
-                'name' => 'iPhone X 64GB',
-                'code' => 'iphone_x_64',
-                'description' => 'Отличный продвинутый телефон с памятью на 64 gb',
-                'price' => '1000',
+                'name' => 'Xiaomi Redmi Note 12 Pro',
+                'code' => 'Note_12_Pro',
+                'description' => 'Редми Ноут 12 Про оснащен передовым процессором Qualcomm Snapdragon 732G с 8 нм техпроцессом.',
+                'price' => '1149',
                 'category_id' => 1,
-                'image' => 'products/iphone_x.jpg',
+                'image' => 'products/Note_12_Pro.webp',
                 'count' => rand(0, 10),
             ],
             [
-                'name' => 'iPhone X 256GB',
-                'code' => 'iphone_x_256',
-                'description' => 'Отличный продвинутый телефон с памятью на 256 gb',
-                'price' => '1500',
+                'name' => 'Realme 10',
+                'code' => 'Realme_10',
+                'description' => 'Если вам нужен телефон, который потянет даже самые требовательные игры и приложения, то стоит купить Realme 10.',
+                'price' => '699',
                 'category_id' => 1,
-                'image' => 'products/iphone_x_silver.jpg',
+                'image' => 'products/realme_10.webp',
                 'count' => rand(0, 10),
             ],
             [
@@ -115,6 +115,7 @@ class ProductsTableSeeder extends Seeder
                 'image' => 'products/bosch.jpg',
                 'count' => rand(0, 10),
             ],
+
         ]);
     }
 }
