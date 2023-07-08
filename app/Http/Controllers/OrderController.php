@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class OrderController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth'); // middleware('auth') проверяет перед роутингом авторизацию
+        $this->middleware('auth');
     }
 
     /**
@@ -22,15 +23,19 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index() // отображение всех заказов
+    public function index()
     {
         $orders = Order::where('status', 1)->paginate(10);
         return view('auth.orders.index', compact('orders'));
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function show(Order $order)
     {
-        $products = $order->products()->withTrashed()->get(); // withTrashed() - отображает удаленные товары вместе с остальными
-        return view('auth.orders.show', compact('order', 'products')); // 'auth.orders.show' - blade
+        return view('auth.orders.show', compact('order'));
     }
 }

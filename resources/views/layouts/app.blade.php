@@ -7,52 +7,53 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>На главную страницу</title>
+   
     <!-- Fonts -->
-    <link href="/css/mycss.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/starter-template.css">
-    {{-- корректировка картинки в карточке товаров --}}
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <img src="/public/storage/background/vivid-blurred-colorful-background.jpg" alt="" id="window_background">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Вернуться на сайт
+                    На главную страницу
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    
-                    <ul class="navbar-nav me-auto">
-                    </ul>
-
-                    @auth
+                @auth
                     <ul class="nav navbar-nav">
-                        <li class="nav-item">
-                                @admin
+                            @admin  
+                                <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{route('categories.index')}}">Категории</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="{{route('products.index')}}">Товары</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="{{route('home')}}">Заказы</a>
+                                    <a class="nav-link active" aria-current="page" href="{{route('imags_create')}}">Загрузка картинок</a>
                                 </li>
-                                </ul>
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{route('home')}}">Заказы</a>
+                                </li>
                             @endadmin
-                    @endauth
+                    </ul>       
+                @endauth
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -92,13 +93,18 @@
                 </div>
             </div>
         </nav>
-        
+        <main class="py-4">
             <div class="container">
-                <main class="ру-4">
+                <div class="starter-template">
                     @yield('content')
-                </main>
+                </div>
             </div>
+        </main>
     </div>
+
+    
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
+    @yield('scripts') --}}
 
 </body>
 </html>

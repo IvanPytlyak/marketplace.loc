@@ -10,16 +10,14 @@ class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('users')->insert([
             'name' => 'Администратор',
-            'email' => 'example@mail.ru',
+            'email' => 'admin@mail.ru',
             'password' => bcrypt('admin'),
-            'is_admin' => 1
+            'isAdmin' => 1,
         ]);
     }
 }

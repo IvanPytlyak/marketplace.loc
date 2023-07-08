@@ -10,32 +10,29 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id'];
-
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps(); // withPivot позволяет вызывать count через связи
+        return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
     }
     public function getFullPrice()
     {
-        $summ = 0;
-        foreach ($this->products()->withTrashed()->get() as $product) { //$this->products()->withTrashed()->get() - получаем список продуктов с учетом удаленных ранее
-            $summ += $product->getPriceForCount($product->pivot->count);
+        $sum = 0;
+        foreach ($this->products as $product) {
+            $sum += $product->getPriceForCount($product->pivot->count);
         }
-        return $summ;
+        return $sum;
     }
-
-    public function saveOrder($name, $phone) // потом добавить в параметр email
+    public function saveOrder($request)
     {
         if ($this->status == 0) {
             $this->status = 1;
-            $this->name = $name;
-            $this->phone = $phone;
-            // $this->email = $email;
-            $this->save(); // сохраняет в БД
-            session()->forget('orderId'); // удаляет значение ключа 'orderId' из сессии текущего пользователя.
+            $this->name = $request->name;
+            $this->phone = $request->phone;
+            $this->save();
+            session()->forget('orderId');
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 }

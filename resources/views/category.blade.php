@@ -1,21 +1,18 @@
 @extends('master')
+
 @section('title', 'Категория ' . $category->name)
+
 @section('content')
 
-
-{{-- <div class="starter-template"> --}}
-    <h1>
-        {{ $category->name}} {{$category->products->count()}}
-    </h1>
-    <p>
-        {{ $category->description}}
-    </p>
+    <h1>{{$category->name}}</h1> 
+    <p>{{$category->description}}</p>
+    <p>товаров этой группе: {{$category->products->count()}}</p> 
     <div class="row">
-        @foreach ($category->products()->with('category')->get() as $product)
-        @include('card' , compact('product'))
+           
+        @foreach ($category->products->where('is_active', 1) as $product)
+        @include('card', compact('product'))
         @endforeach
-    </div>
-{{-- </div> --}}
-
-
+        {{-- @include('card', ['category' => $category]) --}}
+        {{--   ['category' => $category]  = compact('category') - передаем значения для возможности его переиспользования в других связанных через include blade-файлах--}}
+        
 @endsection

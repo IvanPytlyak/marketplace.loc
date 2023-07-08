@@ -4966,12 +4966,17 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .navbar-inverse {
-    background-color: #222;
-    border-color: #080808
+    /* background-color: #222; */
+    /* border-color: #080808 */
+    /* background-color: #01ffff; */
+    /* background-color: #1d8eea; */
+    background: linear-gradient(green,  #e2f4c8);
+    border: 0px;
+    font-weight: bold;
 }
 
 .navbar-inverse .navbar-brand {
-    color: #9d9d9d
+    color: white;
 }
 
 .navbar-inverse .navbar-brand:focus,.navbar-inverse .navbar-brand:hover {
@@ -4980,21 +4985,24 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 
 .navbar-inverse .navbar-text {
-    color: #9d9d9d
+    color: white;
 }
 
 .navbar-inverse .navbar-nav>li>a {
-    color: #9d9d9d
+    color: white;
 }
 
 .navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover {
-    color: #fff;
+    color: 
+    yellow;
     background-color: transparent
 }
 
 .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:focus,.navbar-inverse .navbar-nav>.active>a:hover {
-    color: #fff;
-    background-color: #080808
+    color: white;
+    /* background-color: #337ab7; */
+    background-color: #f0ad4e;
+    border-radius: 5%;
 }
 
 .navbar-inverse .navbar-nav>.disabled>a,.navbar-inverse .navbar-nav>.disabled>a:focus,.navbar-inverse .navbar-nav>.disabled>a:hover {
@@ -5406,7 +5414,8 @@ a.badge:focus,a.badge:hover {
     border-radius: 4px;
     -webkit-transition: border .2s ease-in-out;
     -o-transition: border .2s ease-in-out;
-    transition: border .2s ease-in-out
+    transition: border .2s ease-in-out;
+    min-height: 400px;
 }
 
 .thumbnail a>img,.thumbnail>img {
@@ -5864,7 +5873,8 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
     border: 1px solid transparent;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
-    box-shadow: 0 1px 1px rgba(0,0,0,.05)
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    background-image: url(../storage/background/fone.jpg);
 }
 
 .panel-body {
@@ -6865,10 +6875,10 @@ button.close {
     margin: 1px;
     text-indent: -999px;
     cursor: pointer;
-    background-color: #000;
+    background-color: #0009;
     background-color: rgba(0,0,0,0);
     border: 1px solid #fff;
-    border-radius: 10px;
+    border-radius: 10px
 }
 
 .carousel-indicators .active {
@@ -7210,7 +7220,5 @@ button.close {
         display: none!important
     }
 }
-
-
 
 /*# sourceMappingURL=bootstrap.min.css.map */

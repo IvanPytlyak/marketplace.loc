@@ -10,26 +10,20 @@ class ResetController extends Controller
 {
     public function reset()
     {
-        Artisan::call('migrate:fresh --seed'); // вызывает сброс БД и заполняет ее таблицами миграций и строками из сидеров
+        Artisan::call('migrate:fresh --seed'); //сброс БД
 
-        foreach (['categories', 'products'] as $folder) { // опционально дабы не писать foreach дважды
-            Storage::deleteDirectory($folder); // будет использовать public из filesystems.php // удаляет папку с содержимым
+        Storage::deleteDirectory('categories'); // Для categories определен дефолтный путь сохранения как public in env/ filesystem
+        Storage::makeDirectory('categories');
+        $files = Storage::disk('reset')->files('categories'); // $files=  массив файлов
+        foreach ($files as $file) {
+            Storage::put($file, Storage::disk('reset')->get($file)); // put сохраняет фалы, 1 арг - имя файла в который нужно скопировать данные , 2ой - сами данные
+        } // копирует данные из файла $file на дискеи копирует их в файл с тем же именем на текущем диске (т.е. publick)
 
-            // dump($folder);
-
-            Storage::makeDirectory($folder); // заново создает пустую папку в storage/app/public/$folder
-
-            // dump($folder);
-
-            $files = Storage::disk('reset')->files($folder); // reset-соединение (куда вставить) из filesustems рукотворный
-
-            // dump($files);
-
-            foreach ($files as $file) {
-                Storage::put($file, Storage::disk('reset')->get($file)); //Storage::put(), записывает содержимое файла на другой диск (в нашем случае, тот же диск 'reset').
-                //Storage::disk('reset')->get($file) используется для получения содержимого файла на диске 'reset', а Storage::put($file, ...) записывает это содержимое на тот же диск.
-                // это делается для того, чтобы обновить или перезаписать существующие файлы на этом диске.
-            }
+        Storage::deleteDirectory('products');
+        Storage::makeDirectory('products');
+        $productsFiles = Storage::disk('reset')->files('products');
+        foreach ($productsFiles as $productsFile) {
+            Storage::put($productsFile, Storage::disk('reset')->get($productsFile));
         }
 
         session()->flash('success', 'Проект был сброшен в начальное состояние');

@@ -1,34 +1,47 @@
+
+
+
+
+
 <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
+    <div min-height="400px" class="thumbnail">
         <div class="labels">
-            @if ($product->isNew())
-                <span class="badge badge-success">Новинка</span>
+           @if ($product->new === 1)
+            <span class="badge badge-success">Новинка</span>
+           @endif 
+           @if($product->hit === 1)
+            <span class="badge badge-danger">Хит</span>
             @endif
-            @if ($product->isRecommend())
-                <span class="badge badge-warning">Рекомендуемые</span>
-            @endif
-            @if ($product->isHit())
-                <span class="badge badge-danger">Хит продаж</span>
+            @if ($product->recommend === 1)
+            <span class="badge badge-warning">Рекомендуемое</span>
             @endif
         </div>
-        <img src="{{Storage::url($product->image)}}" alt="">
-        <div class="caption">
-            <h3>{{$product->name}}</h3>
-            <p>{{$product->price}}</p>
-            <p>
-            <form action="{{route('basket-add', $product->id)}}" method="POST">
-                @if ($product->isAvailable())
-                <button type="submit" class="btn btn-primary" role="button">В корзину</button>
-                @else
-                 Не доступен
-                @endif
-                <!-- {{$product->getCategory()->name}} -->
-                <!-- {{$product->category->name}} -->
-                <!--category отсюда  Product.php return $this->belongsTo(Category::class); -->
-                <a href="{{route('product', [$product->category->code, $product->code])}}" class="btn btn-default" role="button">Подробнее</a>
-                @csrf
-            </form>
-            </p>
-        </div>
+
+                <img max-width="300px" max-height="200px" src="{{Storage::url($product->image)}}" alt="{{$product->name}}">
+                <div class="caption">
+
+                    {{$product->category->name}}
+                    {{-- в данном случае category - это тоже таблица ( итоговая связь таблица->таблица->графа) --}}
+         
+                    <h3>{{$product->name}}</h3>
+                    <p id="price">{{$product->price}} руб.</p> 
+                    <p id="currency">{{round($product->price/$usd, 2)}} USD</p> 
+                    <p id="currency">{{round($product->price/$eur, 2)}} EUR</p>
+                    {{-- деление на ноль к категориях, ругается на форму basket-a --}}
+
+                        <p>
+                            <form action="{{route('basket-add', $product->id)}}" method="POST">
+                                <button type="submit" class="btn btn-warning" role="button">В корзину</button>
+                                <a href="{{route('product', [$product->category->code,$product->code])}}"class="btn btn-warning" role="button">Подробнее</a>
+                                @csrf
+                            </form>
+
+                    
+                        </p>
+                </div>
     </div>
 </div>
+
+
+{{-- <a href="{{route('basket')}}"class="btn btn-default" role="button">В корзину</a>
+<a href="{{route('product', [$product->category->code,$product->code])}}"class="btn btn-default" role="button">Подробнее</a> --}}

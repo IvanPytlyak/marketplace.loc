@@ -5,33 +5,29 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\Http\Controllers\TelegramController;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->app->when(TelegramController::class)->needs('$token')->give('6007033888:AAHd2EEPqBS_LrZCUsMC5W5hX2R9I3SNECQ');
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-
-        Blade::directive('routeactive', function ($route) {
+        Blade::directive('routeactive', function ($route) { // @routeactive в blade // $route = 'index' / 'categories'
             return "<?php echo Route::currentRouteNamed($route) ? 'class=\"active\"' : '' ?>";
         });
-
         Blade::if('admin', function () {
-            return Auth::check() && Auth::user()->isAdmin(); //Auth::check() проверка авториованы?
+            // return Auth::check() && Auth::user()->isAdmin();
+            return Auth::check() && Auth::user()->isAdmin;
         });
     }
 }

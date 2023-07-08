@@ -3,11 +3,8 @@
 @section('title', 'Категории')
 
 @section('content')
-{{-- <div class="row justify-content-center"> --}}
-    {{-- <table class="table text-center"> --}}
     <div class="col-md-12">
-        {{-- <div class="col-md-12"> и удалить  <div class="row justify-content-center"> --}}
-        <h1 id="h1_fix">Категории</h1>
+        <h1>Категории</h1>
         <table class="table">
             <tbody>
             <tr>
@@ -24,29 +21,29 @@
                     Действия
                 </th>
             </tr>
-            @foreach($categories as $category)
+                @foreach ($categories as $category)
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->code }}</td>
-                    <td>{{ $category->name }}</td>
+                    <td>{{$category->id}}</td>
+                    <td>{{$category->code}}</td>
+                    <td>{{$category->name}}</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <form action="{{ route('categories.destroy', $category) }}" method="POST">
-                                {{--  route('categories.destroy', $category) указан как имключение т.к. для открыть/редактировать роуты прописаны --}}
-                                <a class="btn btn-success" type="button" href="{{ route('categories.show', $category) }}">Открыть</a>
-                                <a class="btn btn-warning" type="button" href="{{ route('categories.edit', $category) }}">Редактировать</a>
+                            <form action="{{route('categories.destroy', $category)}}" method="POST">
+                                <a class="btn btn-success" type="button" href="{{route('categories.show', $category->id)}}">Открыть</a>
+                                <a class="btn btn-warning" type="button" href="{{route('categories.edit', $category->id)}}">Редактировать</a>
                                 @csrf
                                 @method('DELETE')
                                 <input class="btn btn-danger" type="submit" value="Удалить"></form>
                         </div>
                     </td>
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
         </table>
-        {{ $categories->links('pagination::bootstrap-4') }}
-        <a class="btn btn-success" type="button"
-           href="{{ route('categories.create') }}">Добавить категорию</a>
+       
+        <a class="btn btn-success" type="button" href="{{route('categories.create')}}">Добавить категорию</a>
+       
     </div>
-
+    <br>
+    {{$categories->links('pagination::bootstrap-4')}}
 @endsection

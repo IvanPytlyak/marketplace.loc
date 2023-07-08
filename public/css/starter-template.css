@@ -43,12 +43,18 @@ span.badge.badge-danger {
 }
 
 div.filters {
-    padding-bottom: 5px;
+    padding: 0.5%;
+    /* background-color: aliceblue; */
+    /* border: 1px solid gray; */
+    /* margin: 10px auto 10px auto; */
 }
 
-footer {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    color: #99979c;
-    background-color: #2a2730;
+#price{
+    color: #337ab7;
+    font-size: 22px;
+    font-weight: bold;
+}
+#currency {
+    color: gray;
+    font-weight: bold;
 }
