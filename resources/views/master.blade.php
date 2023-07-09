@@ -66,7 +66,7 @@
             
                     @yield('content')
             </div>
-          @include('telegram')
+          {{-- @include('telegram') --}}
         </div>
 </body>
 </html>
