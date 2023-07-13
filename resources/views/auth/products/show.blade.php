@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>Картинка</td>
-                <td><img src="{{Storage::url($product->image)}}"></td>
+                <td><img id="fix_img_roduct_category" src="{{Storage::url($product->image)}}"></td>
             </tr>
             <tr>
                 <td>Цена</td>

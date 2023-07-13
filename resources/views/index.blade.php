@@ -66,6 +66,12 @@
     
         {{$products->links('pagination::bootstrap-4')}}
 
+        @include('telegram')
 
+        <div class="container">            
+            <footer>
+                По вопросам рекламы обращаться по номеру +375 (29) 111-22-33
+            </footer>       
+        <div>
 
 @endsection

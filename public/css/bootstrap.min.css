@@ -4970,7 +4970,8 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
     /* border-color: #080808 */
     /* background-color: #01ffff; */
     /* background-color: #1d8eea; */
-    background: linear-gradient(green,  #e2f4c8);
+    /* background: linear-gradient(green,  #e2f4c8); */
+    background: linear-gradient(to bottom, #a6e36d, #83c569);
     border: 0px;
     font-weight: bold;
 }

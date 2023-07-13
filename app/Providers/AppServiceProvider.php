@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\TelegramController;
 
@@ -15,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Schema::defaultStringLength(191);
         $this->app->when(TelegramController::class)->needs('$token')->give('6007033888:AAHd2EEPqBS_LrZCUsMC5W5hX2R9I3SNECQ');
     }
 

@@ -17,3 +17,7 @@ span.badge.badge-danger {
 #imagefix_order {
     max-height: 56px;
   }
+
+  #fix_img_roduct_category{
+    max-width: 200px;
+  }

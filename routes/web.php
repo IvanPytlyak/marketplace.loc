@@ -60,7 +60,7 @@ Route::resource('imags', 'App\Http\Controllers\ImagController');
 Route::post('imags', 'App\Http\Controllers\ImagController@store')->name('imags_store');
 Route::get('imags', 'App\Http\Controllers\ImagController@index')->name('imags_create');
 
-Route::post('/tg', [TelegramController::class, 'telegram'])->name('send_tg_messages');
+Route::post('/tg', [TelegramController::class, 'sendMessage'])->name('send_tg_messages');
 
 // Route::get('/products/{productId}/comments', [ReviewController::class, 'index'])->name('reviews.index');
 

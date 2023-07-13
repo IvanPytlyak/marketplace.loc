@@ -144,3 +144,91 @@ input[type="submit"]:hover {
   background-color: #005c00; 
 } */
 
+
+
+
+
+
+footer {
+
+bottom: 0;
+
+min-height: 50px;
+background: linear-gradient(to bottom, #a6e36d, #83c569); 
+color: #fff; 
+margin-top: 70px;
+padding: 20px;
+text-align: center;
+}
+
+
+
+
+
+
+.wrapper-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.chat-container {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat-messages {
+  padding: 20px;
+  /* background: linear-gradient(to bottom, #c1e6d8, #a2d7c4); */
+  background: linear-gradient(to bottom, #a6e36d, white);
+  /* #f0ad4e */
+  /* background: linear-gradient(to bottom, #a6e36d, #83c569);  */
+  animation: gradientAnimation 10s linear infinite;
+  color: gray;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.chat-input {
+  padding: 20px;
+}
+
+.chat-input input,
+.chat-input textarea {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.chat-input .btn-primary {
+  background-color: #83c569;
+  border-color: #83c569;
+}
+
+.chat-input .btn-primary:hover {
+  background-color: #70b85a;
+  border-color: #70b85a;
+}
+
+#textarea_tg{
+  max-width: 100%;
+}
