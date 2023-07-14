@@ -54,7 +54,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::resource('reviews', 'App\Http\Controllers\ReviewController');
 Route::get('reviews', 'App\Http\Controllers\ReviewController@index')->name('reviews_create');
-Route::post('reviews', 'App\Http\Controllers\ReviewController@store')->name('reviews_store');
+// Route::post('reviews', 'App\Http\Controllers\ReviewController@store')->name('reviews_store'); // 13/07 изначальный (59 - тест)
+
+Route::post('/products/{product}/reviews', 'App\Http\Controllers\ReviewController@store')->name('reviews_store');
 
 Route::resource('imags', 'App\Http\Controllers\ImagController');
 Route::post('imags', 'App\Http\Controllers\ImagController@store')->name('imags_store');

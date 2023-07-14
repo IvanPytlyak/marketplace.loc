@@ -29,17 +29,19 @@
     <h2>Отзывы</h2>
     <div class="comments-wrapper">
         @foreach($comments as $comment) 
-        <div class="comment">
-            <div class="comment-header"> 
-                <h4 class="comment-author">{{ $comment->name }}</h4> 
-                <span class="comment-date">{{ $comment->created_at }}</span> 
-            </div> 
-            <div class="comment-content"> 
-                <div class="comment-description">
-                    <p>{{ $comment->description }}</p> 
+            <div class="comment">
+                <div class="comment-header"> 
+                    <h4 class="comment-author">{{ $comment->name }}</h4> 
+                    <span class="comment-date">{{ $comment->created_at }}</span> 
+                </div> 
+                <div class="comment-content"> 
+                    <div class="comment-description">
+                        <p>{{ $comment->description }}</p> 
+                    </div> 
                 </div> 
             </div> 
-        </div> @endforeach 
+        @endforeach 
+        @include('reviews.create')
     </div>
 
 @endsection

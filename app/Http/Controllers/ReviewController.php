@@ -30,13 +30,18 @@ class ReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
+        // $params = $request->all();
+        // Review::create($params);
+        // return redirect()->route('index'); // версия с отдельной ссылкой
+
+        $review = new Review();
         $params = $request->all();
-        Review::create($params);
-        // return redirect()->route('reviews.index');
+        $review->name = $params['name_review'];
+        $review->description = $params['description_review'];
+        $product->reviews()->save($review);
         return redirect()->route('index');
-        // дописать redirect ку да нужно ?
     }
 
     /**
