@@ -11,7 +11,7 @@
 <body>
     
     <img src="../storage/background/fone.jpg" alt="" id="window_background">
-        <a href="{{route('index')}}">На главную</a>
+        {{-- <a href="{{route('index')}}">На главную</a> --}}
             {{-- <section class="comment-section">
                     <h2 class="section-title mb-5">Отправить комментарий</h2>
                     <form action="{{route('reviews_store')}}" method="POST">
@@ -47,7 +47,7 @@
 
             <section class="comment-section">
                 <h2 class="section-title mb-5">Отправить комментарий</h2>
-                <form action="{{route('reviews_store', ['product' => $product])}}" method="POST">
+                <form action="{{route('reviews_store', ['product' => $product->id])}}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="form-group col-6">

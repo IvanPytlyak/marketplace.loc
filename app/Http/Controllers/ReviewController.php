@@ -41,8 +41,9 @@ class ReviewController extends Controller
         $review->name = $params['name_review'];
         $review->description = $params['description_review'];
         $product->reviews()->save($review);
-        return redirect()->route('index');
+        return redirect()->route('product', ['category' => $product->category->code, 'product' => $product->code]);
     }
+
 
     /**
      * Display the specified resource.

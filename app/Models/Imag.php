@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Imag extends Model
 {
@@ -16,4 +17,9 @@ class Imag extends Model
         'created_at',
         'imags.name'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

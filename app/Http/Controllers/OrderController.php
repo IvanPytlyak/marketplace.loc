@@ -38,4 +38,19 @@ class OrderController extends Controller
     {
         return view('auth.orders.show', compact('order'));
     }
+
+
+    public function update(Request $request, Order $order)
+    {
+        $params = $request->all();
+
+        if ($params['is_processed']) {
+            $params['is_processed'] = 1; // on
+        } else {
+            $params['is_processed'] = 0;
+        }
+
+        $order->update($params);
+        return redirect()->route('home');
+    }
 }

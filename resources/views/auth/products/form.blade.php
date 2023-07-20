@@ -85,8 +85,6 @@
                             </div>
                         </div>
 
-                        {{-- @include('imags.create') --}}
-
                         <div class="input-group row">
                             <label for="price" class="col-sm-2 col-form-label">Цена: </label>
                             <div class="col-sm-2">
@@ -123,6 +121,8 @@
                         <button class="btn btn-success">Сохранить</button>
                     </div>
                 </form>
+                @include('imags.create', compact('product')) 
+                {{-- разрешить вопрос когда  product->id === null--}}
             </div>
 @endsection 
 

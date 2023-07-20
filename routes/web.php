@@ -43,10 +43,15 @@ Route::middleware(['auth'])->group(function () {
     ], function () {
         Route::group(['middleware' => 'isAdmin'], function () {
             Route::get('/orders', [AdminOrderController::class, 'index'])->name('home');
+
+            Route::post('/orders/{order}/update', [AdminOrderController::class, 'update'])->name('orders_update_status'); // tut
+
             Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         });
         Route::resource('categories', 'App\Http\Controllers\Admin\CategoryController');
         Route::resource('products', 'App\Http\Controllers\Admin\ProductController');
+
+        Route::post('/{product}/images', 'App\Http\Controllers\ImagController@store')->name('image_store'); // множественная загрузка картинок
     });
 });
 

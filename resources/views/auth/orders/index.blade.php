@@ -27,8 +27,12 @@
                         Сумма
                     </th>
                     <th>
+                        Статус заказа
+                    </th>
+                    <th>
                         Действия
                     </th>
+                
                 </tr>
                     @foreach ($orders as $order)
                         <tr>
@@ -38,6 +42,14 @@
                             <td>{{$order->created_at->format('H:i d.m.Y')}}</td>
                             <td>{{$order->getFullPrice()}}</td>
 
+                            <td>
+                                @if($order->isProcessed())
+                                Выполнен
+                                @else
+                                В обработке
+                                @endif
+                            </td>
+                           
                             <td>
                                 <div class="btn-group" role="group">
                                     <a 
@@ -49,6 +61,7 @@
                                     class="btn btn-success" type="button">Открыть</a> 
                                 </div>
                             </td>
+                           
                         </tr>
                     @endforeach       
                 </tbody>

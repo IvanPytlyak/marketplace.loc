@@ -10,6 +10,10 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'is_processed',
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
@@ -34,5 +38,10 @@ class Order extends Model
         } else {
             return false;
         }
+    }
+
+    public function isProcessed()
+    {
+        return $this->is_processed === 1;
     }
 }

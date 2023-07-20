@@ -39,9 +39,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="{{route('products.index')}}">Товары</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="{{route('imags_create')}}">Загрузка картинок</a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{route('home')}}">Заказы</a>
                                 </li>

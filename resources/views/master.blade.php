@@ -32,7 +32,7 @@
                         <li @routeactive('basket')><a href="{{route('basket')}}">В корзину</a></li>
                     
                         <li><a href="{{route('reset')}}">Сбросить проект в начальное состояние</a></li>
-                        <li><a href="{{route('reviews_create')}}">Отзывы</a></li>
+                        {{-- <li><a href="{{route('reviews_create')}}">Отзывы</a></li> --}}
                         {{-- <li><a href="{{route('reviews_create')}}">TG</a></li> --}}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

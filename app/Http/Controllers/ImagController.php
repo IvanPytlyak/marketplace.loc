@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Imag;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ImagController extends Controller
@@ -26,18 +27,31 @@ class ImagController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
-        $params = $request->all();
+        // $params = $request->all();
+        // if ($request->hasFile('imags')) {
+        //     $file = $request->file('imags');
+        //     $path = $file->store('imags');
+        //     $params['imags.name'] = $path;
+        // };
+        // Imag::create($params);
+        // return redirect()->route('products.index');
 
-        if ($request->hasFile('imags')) {
-            $file = $request->file('imags');
-            $path = $file->store('imags');
+
+        $params = $request->all();
+        if ($request->has('imags')) {
+            // $file = $request->file('imags');
+            // $path = $file->store('imags');
+            $path = $request->file('imags')->store('imags');
             $params['imags.name'] = $path;
         };
 
-        Imag::create($params);
-        return redirect()->route('products.index');
+        $img = new Imag(['product_id' => $params['product_id_img']]);
+        $img->name = $params['imags.name'];
+        $img->save();
+
+        return redirect()->route('products.index', ['product' => $product->id]);
     }
 
     /**

@@ -92,9 +92,9 @@
 
 
 /* форма отправки комментария */
-.comment-section { 
+/* .comment-section { 
   margin: 0 auto;
-  width: 30%;
+  width: 100%;
   background-color: #f2fff2; 
   padding: 20px; 
   border: 1px solid #007f00;
@@ -107,13 +107,7 @@
   color: #007f00; 
   font-weight: bold; 
 } 
-/* textarea, input[type="text"], input[type="submit"] { 
-  border: 2px solid #007f00; 
-  border-radius: 5px; 
-  padding: 10px; 
-  width: 100%; 
-  margin-bottom: 10px; 
-}  */
+
 textarea { 
   height: 150px; 
 } 
@@ -133,16 +127,45 @@ textarea, .fix_input, .fix_submit {
 } 
 .fix_submit:hover { 
   background-color: #005c00; 
-}
+} */
 
-/* input[type="submit"] { 
+.comment-section { 
+
+  max-width: 600px;
+  margin: 20% auto;
+} 
+.section-title {
+  color: #007f00; 
+  font-size: 24px; 
+  margin-bottom: 10px; 
+} .form-group label { 
+  color: #007f00; 
+  font-weight: bold; 
+} 
+
+textarea { 
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 50px; 
+} 
+
+textarea, .fix_input, .fix_submit { 
+  border: 2px solid #007f00; 
+  border-radius: 5px; 
+  padding: 10px; 
+  width: 100%; 
+  margin-bottom: 10px; 
+} 
+
+.fix_submit { 
   background-color: #007f00; 
   color: #fff; 
   cursor: pointer; 
 } 
-input[type="submit"]:hover { 
+.fix_submit:hover { 
   background-color: #005c00; 
-} */
+}
+
 
 
 
@@ -232,3 +255,11 @@ text-align: center;
 #textarea_tg{
   max-width: 100%;
 }
+
+
+
+
+
+/* .comments-wrapper{ 
+  max-width: 400px; margin: 0 auto; padding: 20px; 
+}  */
