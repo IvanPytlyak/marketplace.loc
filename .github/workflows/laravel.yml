@@ -31,4 +31,4 @@ jobs:
       with:
         node-version: '16.17.1'
     - name: NPM
-      run: npm run dev
+      run: npm run build
