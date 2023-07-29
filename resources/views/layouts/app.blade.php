@@ -45,6 +45,9 @@
                                 <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{route('home')}}">Заказы</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{route('open_email')}}">Рассылка</a>
+                                </li>
                             @endadmin
                     </ul>       
                 @endauth

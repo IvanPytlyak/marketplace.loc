@@ -1,14 +1,17 @@
 <?php
 
+use App\Mail\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\TelegramController;
+use App\Http\Controllers\Admin\MymailController;
 use App\Http\Controllers\OrderController as AdminOrderController;
 use App\Http\Controllers\Person\OrderController as PersonOrderController;
-use App\Http\Controllers\TelegramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,14 @@ use App\Http\Controllers\TelegramController;
 |
 */
 
+Route::get('/mail', function () {
+    $recipient = 'mario38671@gmail.com';
+    Mail::to($recipient)->send(new MailMessage('test', 'test'));
+    return 'Отправлено';
+});
+
+Route::get('/open', [MymailController::class, 'index'])->name('open_email');
+Route::post('/send', [MymailController::class, 'sendEmail'])->name('mail_send');
 
 Auth::routes();
 

@@ -31,9 +31,9 @@ class TelegramController extends Controller
         $description = $request->input('review_description');
         $token = env('TELEGRAM_BOT_TOKEN');
         $chatId = '1123756923';
-        // dd($chatId);
+        // dd($chatId, $token);
         $text = "Имя: $name\nНомер телефона: $phone\nEmail: $email\nСообщение: $description";
-        Telegram::bot($token)->sendMessage([
+        Telegram::bot(env('TELEGRAM_BOT_TOKEN'))->sendMessage([
             'chat_id' => $chatId,
             'text' => $text
         ]);
@@ -45,6 +45,17 @@ class TelegramController extends Controller
         // ]);
         return redirect()->route('index');
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
