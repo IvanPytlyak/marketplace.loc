@@ -22,7 +22,23 @@
 
     <br>
    
-    <p>{{$product->description}}</p>
+    <h4>{{$product->description}}</h4>
+    <br>
+
+    {{-- @if ($product->isAvailable())
+        <a class="btn btn-warning" href="{{route('basket-add', $product)}}">В корзину</a>
+    @else
+       <p>Товар не доступен</p> 
+    @endif --}}
+
+    @if ($product->isAvailable())
+    <form action="{{ route('basket-add', $product) }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-warning">В корзину</button>
+    </form>
+    @else
+        <p>Товар не доступен</p> 
+    @endif
 
 
     <br>

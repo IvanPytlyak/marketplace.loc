@@ -99,6 +99,7 @@
         <main class="py-4">
             <div class="container">
                 <div class="starter-template">
+                    <img src="../storage/background/fone.jpg" alt="" id="window_background">
                     @yield('content')
                 </div>
             </div>

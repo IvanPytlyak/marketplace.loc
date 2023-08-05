@@ -36,7 +36,8 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return view('auth.orders.show', compact('order'));
+        $products = $order->products()->withTrashed()->get();
+        return view('auth.orders.show', compact('order', 'products'));
     }
 
 

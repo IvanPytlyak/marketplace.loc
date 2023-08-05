@@ -33,7 +33,7 @@
                                             @csrf
                                         </form>
 
-                                        <form action="{{route('basket-add', $product)}}" method="POST">
+                                        <form action="{{route('basket-add', $product->id)}}" method="POST">
                                             <button type="submit" class="btn btn-success">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                             </button>

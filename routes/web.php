@@ -96,7 +96,7 @@ Route::group([
     Route::post('/place', [BasketController::class, 'basketConfirm'])->name('basket-confirm');
     Route::post('/remove/{id}', [BasketController::class, 'basketRemove'])->name('basket-remove');
 });
-Route::post('basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
+Route::match(['post', 'get'], 'basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
 
 Route::get('/{category}', [MainController::class, 'category'])->name('category');
 Route::get('/{category}/{product?}', [MainController::class, 'product'])->name('product'); //  product? = может быть пустым

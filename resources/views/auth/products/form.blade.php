@@ -116,10 +116,25 @@
                                 </div>
                             </div>  
                         @endforeach
-                        <br>
+                        
 
+                        <div class="input-group row">
+                            <label for="count" class="col-sm-2 col-form-label">Количество: </label>
+                            <div class="col-sm-2">
+                                @error('count')
+                                    <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                                <input type="text" class="form-control" name="count" id="count" 
+                                value="@isset($product) {{$product->count}} @endisset">
+                            </div>
+                        </div>
+
+                        <br>
                         <button class="btn btn-success">Сохранить</button>
                     </div>
+
+                  
+
                 </form>
                 @include('imags.create', compact('product')) 
                 {{-- разрешить вопрос когда  product->id === null--}}

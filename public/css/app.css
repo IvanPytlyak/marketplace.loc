@@ -21,3 +21,14 @@ span.badge.badge-danger {
   #fix_img_roduct_category{
     max-width: 200px;
   }
+
+  #window_background {
+    min-height: 100%;
+    min-width: 640px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }

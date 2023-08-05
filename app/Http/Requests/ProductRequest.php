@@ -26,6 +26,7 @@ class ProductRequest extends FormRequest
             'name' => 'required|min:3|max:255',
             'description' =>  'required|min:3|max:2255',
             'price' => 'required',
+            'count' => 'required|numeric|min:0'
         ];
         if ($this->route()->named('products.update')) { // products.update / если был переход по ресурсному роуту (true/false)
             $rules['code'] .= ',' . $this->route()->parameter('product')->id;

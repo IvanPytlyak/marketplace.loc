@@ -5,7 +5,7 @@
 @section('content')
     
     
-        <h1 id="all_products">Все товары</h1>
+        <h2 id="all_products">Все товары</h2>
         
         {{-- <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">

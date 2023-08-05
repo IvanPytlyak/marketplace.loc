@@ -21,7 +21,7 @@ class Order extends Model
     public function getFullPrice()
     {
         $sum = 0;
-        foreach ($this->products as $product) {
+        foreach ($this->products()->withTrashed()->get() as $product) { //softDelete
             $sum += $product->getPriceForCount($product->pivot->count);
         }
         return $sum;
