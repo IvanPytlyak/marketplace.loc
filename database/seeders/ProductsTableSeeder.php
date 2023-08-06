@@ -23,7 +23,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'image' => 'products/barbus_o.jpg',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Барбус пятиполосый',
@@ -33,7 +33,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'image' => 'products/barbus_p.jpg',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Бычок синий неоновый',
@@ -43,7 +43,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'image' => 'products/buchok.jpg',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Болотный карликовый рак',
@@ -53,7 +53,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'image' => 'products/cambarellus.jpg',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Галлерея Риф',
@@ -63,7 +63,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'image' => 'products/rif.jfif',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Грунт Seachem Gray Coast',
@@ -73,7 +73,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 2,
                 'image' => 'products/sand.png',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Грунт Seachem Pearl Coast',
@@ -83,7 +83,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 2,
                 'image' => 'products/sand_b.png',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Аквариум eGodim Plain (30л)',
@@ -93,7 +93,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 2,
                 'image' => 'products/aqua.webp',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Ножницы ISTA',
@@ -103,7 +103,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 3,
                 'image' => 'products/scissors.webp',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Коряга Дракон',
@@ -113,7 +113,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 3,
                 'image' => 'products/dragon.png',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
             [
                 'name' => 'Коряга затонувшая',
@@ -123,7 +123,7 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 3,
                 'image' => 'products/sink.png',
                 'is_active' => 1,
-                // 'count' => rand(0, 10),
+                'count' => rand(0, 10),
             ],
 
         ]);
