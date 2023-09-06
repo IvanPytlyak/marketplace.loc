@@ -37,7 +37,23 @@
         <button type="submit" class="btn btn-warning">В корзину</button>
     </form>
     @else
-        <p>Товар не доступен</p> 
+        <p>Товар не доступен</p>
+        <span>Сообщить мне, когда товар появится в наличии:</span> 
+        
+        {{-- errors = default method --}}
+    <div>
+        <span class="warning">
+            @if ($errors->get('email'))
+                {!! $errors->get('email')[0] !!}
+            @endif
+        </span>
+    </div>
+       
+        <form action="{{route('subscription', $product)}}" method="POST">
+            @csrf
+            <input type="text" name="email">
+            <button type="submit">Отправить</button>
+        </form>
     @endif
 
 

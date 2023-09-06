@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\TelegramController;
+use App\Observers\ProductObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
             // return Auth::check() && Auth::user()->isAdmin();
             return Auth::check() && Auth::user()->isAdmin;
         });
+
+        Product::observe(ProductObserver::class); // для включения ProductObserver
     }
 }

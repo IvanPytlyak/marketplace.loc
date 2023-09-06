@@ -24,6 +24,16 @@ use App\Http\Controllers\Person\OrderController as PersonOrderController;
 |
 */
 
+
+// Route::get('/reset-password', ['Auth\ResetPasswordController@showResetForm'])->name('password.request');
+// Route::get('/reset-password', ['Auth\ResetPasswordController@reset'])->name('password.update');
+
+
+
+
+
+
+
 Route::get('/mail', function () {
     $recipient = 'mario38671@gmail.com';
     Mail::to($recipient)->send(new MailMessage('test', 'test'));
@@ -86,6 +96,7 @@ Route::post('/tg', [TelegramController::class, 'sendMessage'])->name('send_tg_me
 
 Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
+Route::post('subscription/{product}', [MainController::class, 'subscribe'])->name('subscription');
 
 Route::group([
     'middleware' => 'basket_is_not_empty',

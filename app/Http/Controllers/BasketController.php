@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Classes\Basket;
-
 use App\Models\Product;
+use App\Mail\OrderCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use function PHPUnit\Framework\isNull;
 
 class BasketController extends Controller
@@ -111,6 +112,7 @@ class BasketController extends Controller
 
     public function basketConfirm(Request $request)
     {
+
         $orderId = session('orderId');
         if (is_null($orderId)) {
             return redirect()->route('index');
@@ -128,7 +130,18 @@ class BasketController extends Controller
             $product->save();
         }
 
-        $succsess = $order->saveOrder($request);
+
+        $email = Auth::check() ? Auth::user()->email : $request->email;       // + в модели order метод saveOrder передан email
+
+        $basket = new Basket();
+        // Mail::to($email)->send(new OrderCreated($request->name, $basket));      // ошибка т.к. Basket $basket определен толлько в OrderCreated, на данный  момент не понимает к чему тут This
+        // $succsess = $order->saveOrder($request);
+
+        $succsess = $order->saveOrder($request, $email);
+
+        Mail::to($email)->send(new OrderCreated($request->name, $basket->getOrder()));
+        // $succsess = $order->saveOrder($request, $email);                      //
+
         if ($succsess) {
             session()->flash('success', 'Ваш заказ принят в обработку');
         } else {

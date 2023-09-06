@@ -13,7 +13,7 @@
             <form action="{{route('basket-confirm')}}" method="POST">
                 <div>
                     <p>Укажите свои имя и номер телефона, чтобы наш менеджер мог с вами связаться:</p>
-
+                    <br>
                     <div class="container">
                         <div class="form-group">
                             <label for="name" class="control-label col-lg-offset-3 col-lg-2">Имя: </label>
@@ -30,6 +30,18 @@
                             </div>
                         </div>
                         <br>
+                        <br>
+                        @guest
+                        <div class="form-group">
+                            <label for="phone" class="control-label col-lg-offset-3 col-lg-2">Email: </label>
+                            <div class="col-lg-4">
+                                <input type="text" name="email" id="email" value="" class="form-control">
+                            </div>
+                        </div> 
+                        <br>
+                        @endguest
+                        
+                        
                         <br><input type="submit" class="btn btn-success" value="Подтвердите заказ">
                 
                 @csrf

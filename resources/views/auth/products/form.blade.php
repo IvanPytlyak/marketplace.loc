@@ -136,7 +136,7 @@
                   
 
                 </form>
-                @include('imags.create', compact('product')) 
+                {{-- @include('imags.create', compact('product'))  --}}
                 {{-- разрешить вопрос когда  product->id === null--}}
             </div>
 @endsection 

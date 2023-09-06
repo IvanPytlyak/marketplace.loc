@@ -8,6 +8,9 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductsFilterRequest;
+use App\Http\Requests\SubscriptionRequest;
+use App\Models\Subscription;
+use GuzzleHttp\Handler\Proxy;
 
 class MainController extends Controller
 {
@@ -83,6 +86,7 @@ class MainController extends Controller
         $rub = $currencyResponse[21]->Cur_OfficialRate;
 
         $product = Product::where('code', $productCheck)->first();
+        // $product = Product::where('code', $productCheck)->firstOrFail();
         $images = Imag::where('product_id', $product->id)->get();
         $category = Category::where('id', $product->category_id)->first();
 
@@ -91,5 +95,18 @@ class MainController extends Controller
 
 
         return view('product', compact('category', 'product', 'usd', 'eur', 'rub', 'images', 'comments'));
+    }
+
+
+    public function subscribe(SubscriptionRequest $request, Product $product)
+    {
+        Subscription::create(
+            [
+                'email' => $request->email,
+                'product_id' => $product->id,
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Спасибо, мы свяжимся с Вами после появления товара на складе');
     }
 }
