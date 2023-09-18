@@ -50,6 +50,17 @@
                         </div>
                         <br>
                         <div class="input-group row">
+                            <label for="name_en" class="col-sm-2 col-form-label">Название на английском: </label>
+                            <div class="col-sm-6">
+                                @error('name_en')
+                                    <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                                <input type="text" class="form-control" name="name_en" id="name_en" 
+                                value="@isset($product) {{$product->name_en}} @endisset">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-group row">
                             <label for="category_id" class="col-sm-2 col-form-label">Категория: </label>
                             <div class="col-sm-6">
                                 <select name="category_id" id="category_id" class="form-control"> 
@@ -73,6 +84,16 @@
                                     <div class="alert alert-danger">{{$message}}</div>
                                 @enderror
                                 <textarea name="description" id="description" cols="72" rows="7">@isset($product){{$product->description}}@endisset</textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-group row">
+                            <label for="description_en" class="col-sm-2 col-form-label">Описание на английском: </label>
+                            <div class="col-sm-6">
+                                @error('description_en')
+                                    <div class="alert alert-danger">{{$message}}</div>
+                                @enderror
+                                <textarea name="description_en" id="description_en" cols="72" rows="7">@isset($product){{$product->description_en}}@endisset</textarea>
                             </div>
                         </div>
                         <br>

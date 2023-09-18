@@ -4,8 +4,8 @@
 
 @section('content')
    
-    <h1>{{$category->name}}</h1>
-    <h2>{{$product->name}}</h2>
+    <h1>{{$category->__('name')}}</h1>
+    <h2>{{$product->__('name')}}</h2>
     <p id="price">Цена: <b>{{$product->price}} руб.</b></p>
         <p id="currency">{{round($product->price/$usd, 2)}} USD</p> 
         <p id="currency">{{round($product->price/$eur, 2)}} EUR</p>
@@ -22,7 +22,7 @@
 
     <br>
    
-    <h4>{{$product->description}}</h4>
+    <h4>{{$product->__('description')}}</h4>
     <br>
 
     {{-- @if ($product->isAvailable())

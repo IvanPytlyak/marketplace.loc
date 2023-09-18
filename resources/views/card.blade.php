@@ -17,13 +17,13 @@
             @endif
         </div>
 
-                <img max-width="300px" max-height="200px" src="{{Storage::url($product->image)}}" alt="{{$product->name}}">
+                <img max-width="300px" max-height="200px" src="{{Storage::url($product->image)}}" alt="{{$product->__('name')}}">
                 <div class="caption">
 
                     {{$product->category->name}}
                     {{-- в данном случае category - это тоже таблица ( итоговая связь таблица->таблица->графа) --}}
          
-                    <h3>{{$product->name}}</h3>
+                    <h3>{{$product->__('name')}}</h3>
                     <p id="price">{{$product->price}} руб.</p> 
                     <p id="currency">{{round($product->price/$usd, 2)}} USD</p> 
                     <p id="currency">{{round($product->price/$eur, 2)}} EUR</p>

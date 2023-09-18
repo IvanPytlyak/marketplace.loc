@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\CheckIsAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -54,6 +55,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
+        'set_locale' => SetLocale::class,
         'basket_is_not_empty' => \App\Http\Middleware\BasketIsNotEpmty::class,
         'isAdmin' => CheckIsAdmin::class,
         'auth' => \App\Http\Middleware\Authenticate::class,

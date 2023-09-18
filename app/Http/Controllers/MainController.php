@@ -6,11 +6,13 @@ use App\Models\Imag;
 use GuzzleHttp\Client;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use App\Http\Requests\ProductsFilterRequest;
-use App\Http\Requests\SubscriptionRequest;
 use App\Models\Subscription;
+use Illuminate\Http\Request;
 use GuzzleHttp\Handler\Proxy;
+use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\App;
+use App\Http\Requests\SubscriptionRequest;
+use App\Http\Requests\ProductsFilterRequest;
 
 class MainController extends Controller
 {
@@ -108,5 +110,18 @@ class MainController extends Controller
         );
 
         return redirect()->back()->with('success', 'Спасибо, мы свяжимся с Вами после появления товара на складе');
+    }
+
+
+    public function changeLocale($locale)
+    {
+        $availableLocales = ['ru', 'en'];
+        if (!in_array($locale, $availableLocales)) {
+            $locale = config('app.locale');
+        }
+        session(['locale' => $locale]);
+        App::setLocale($locale);
+        // $currentLocale = App::getLocale();
+        return redirect()->back();
     }
 }

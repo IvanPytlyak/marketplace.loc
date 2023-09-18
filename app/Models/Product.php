@@ -6,15 +6,17 @@ use App\Models\Imag;
 use App\Models\Order;
 use App\Models\Review;
 use App\Models\Category;
+use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Translatable;
 
     protected  $fillable = [
         'code',
@@ -28,7 +30,9 @@ class Product extends Model
         'new',
         'hit',
         'recommend',
-        'is_active'
+        'is_active',
+        'name_en',
+        'description_en'
     ];
 
     public function getCategory()

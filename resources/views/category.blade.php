@@ -1,11 +1,11 @@
 @extends('master')
 
-@section('title', 'Категория ' . $category->name)
+@section('title', 'Категория ' . $category->__('name'))
 
 @section('content')
 
-    <h1>{{$category->name}}</h1> 
-    <p>{{$category->description}}</p>
+    <h1>{{$category->__('name')}}</h1> 
+    <p>{{$category->__('description')}}</p>
     <p>товаров этой группе: {{$category->products->count()}}</p> 
     <div class="row">
            
