@@ -24,9 +24,11 @@
                     {{-- в данном случае category - это тоже таблица ( итоговая связь таблица->таблица->графа) --}}
          
                     <h3>{{$product->__('name')}}</h3>
-                    <p id="price">{{$product->price}} руб.</p> 
+                    
+                    <p id="price">{{$product->price}} {{App\Classes\CurrencyConversion::getCurrencySymbol()}}</p> 
+                    {{-- <p id="price">{{$product->price}} руб.</p> 
                     <p id="currency">{{round($product->price/$usd, 2)}} USD</p> 
-                    <p id="currency">{{round($product->price/$eur, 2)}} EUR</p>
+                    <p id="currency">{{round($product->price/$eur, 2)}} EUR</p> --}}
                     {{-- деление на ноль к категориях, ругается на форму basket-a --}}
 
                         <p>

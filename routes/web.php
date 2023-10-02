@@ -34,6 +34,9 @@ Route::middleware(['set_locale'])->group(function () {
 
 
     Route::get('/locale/{locale}', [MainController::class, 'changeLocale'])->name('locale');
+    // Route::get('/currency/{currencyCode}', [MainController::class, 'changeCurrency'])->name('currency');
+    Route::get('currency/{currencyCode}', 'App\Http\Controllers\MainController@changeCurrency')->name('currency');
+    // Route::get('currency/', 'App\Http\Controllers\MainController@newChangeCurrency')->name('currency');
 
 
     Route::get('/mail', function () {

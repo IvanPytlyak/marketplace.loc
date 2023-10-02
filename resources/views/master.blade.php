@@ -32,7 +32,24 @@
                         <li @routeactive('basket')><a href="{{route('basket')}}">@lang('main.add_to_cart')</a></li>
                         <li> <a href="{{route('locale', __('main.set_lang'))}}">@lang('main.set_lang')</a></li>
                     
-                        <li><a href="{{route('reset')}}">Сбросить проект в начальное состояние</a></li>
+
+
+
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            Валюта: {{ session('currency', 'BYN') }} <span class="caret"></span> 
+                            </a> <ul class="dropdown-menu"> 
+                                @foreach (App\Models\Currency::where('date', \Carbon\Carbon::now()->toDateString())->get() as $currency) 
+                                {{-- @foreach (App\Classes\CurrencyConversion::getCurrencies() as $currency)  --}}
+                                    <li> <a href="{{ route('currency', $currency->code) }}"> {{ $currency->symbol }}              
+                            </a></li> 
+                                    @endforeach 
+                                </ul> 
+                                {{-- @dd( session('currencyRate')) --}}
+                        </li>
+                        
+                                          
+
+                        <li><a href="{{route('reset')}}">Сбросить проект</a></li>
                         {{-- <li><a href="{{route('reviews_create')}}">Отзывы</a></li> --}}
                         {{-- <li><a href="{{route('reviews_create')}}">TG</a></li> --}}
                     </ul>

@@ -6,9 +6,10 @@
    
     <h1>{{$category->__('name')}}</h1>
     <h2>{{$product->__('name')}}</h2>
-    <p id="price">Цена: <b>{{$product->price}} руб.</b></p>
+    <p id="price">Цена:{{$product->price}} {{App\Classes\CurrencyConversion::getCurrencySymbol()}}</p> 
+        {{-- <p id="price">Цена: <b>{{$product->price}} руб.</b></p>
         <p id="currency">{{round($product->price/$usd, 2)}} USD</p> 
-        <p id="currency">{{round($product->price/$eur, 2)}} EUR</p>
+        <p id="currency">{{round($product->price/$eur, 2)}} EUR</p> --}}
     <img src="{{Storage::url($product->image)}}">
     <br>
     <br>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Imag;
 use GuzzleHttp\Client;
 use App\Models\Product;
@@ -10,9 +11,12 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use GuzzleHttp\Handler\Proxy;
 use Laravel\Ui\Presets\React;
+use App\Classes\ExchangeRates;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Requests\SubscriptionRequest;
 use App\Http\Requests\ProductsFilterRequest;
+use App\Models\Currency;
 
 class MainController extends Controller
 {
@@ -24,14 +28,61 @@ class MainController extends Controller
         // $usd = $currencyResponse['68'];
         // $eur = $currencyResponse['6'];
         // $rub = $currencyResponse['65'];
-
-        $client = new \GuzzleHttp\Client();
-        $currencyRequest = $client->request('GET', 'https://api.nbrb.by/exrates/rates?periodicity=0&parammode=19');
-        $currencyResponse = json_decode($currencyRequest->getBody()->getContents());
         // eur - 9 / usd -7 / rub - 21
-        $usd = $currencyResponse[7]->Cur_OfficialRate;
-        $eur = $currencyResponse[9]->Cur_OfficialRate;
-        $rub = $currencyResponse[21]->Cur_OfficialRate;
+
+        // 33-39 рабочий вариант (сильно нагружает страницу, постоянно обращается к внешнему ресурсу)
+        // $client = new \GuzzleHttp\Client();
+        // $currencyRequest = $client->request('GET', 'https://api.nbrb.by/exrates/rates?periodicity=0&parammode=19');
+        // $currencyResponse = json_decode($currencyRequest->getBody()->getContents());
+
+        // $usd = $currencyResponse[7]->Cur_OfficialRate;
+        // $eur = $currencyResponse[9]->Cur_OfficialRate;
+        // $rub = $currencyResponse[21]->Cur_OfficialRate;
+
+
+        $AllRates = new ExchangeRates();
+        $usd = $AllRates->takeRates()['USD'];
+        $eur = $AllRates->takeRates()['EUR'];
+        $rub = $AllRates->takeRates()['RUB'];
+
+
+        $currentDate = Carbon::now()->toDateString();
+        $existingRecords = DB::table('currencies')->whereDate('date', $currentDate)->count();
+
+        if ($existingRecords === 0) {
+            DB::table('currencies')->insert([
+
+                [
+                    'code' => 'BYN',
+                    'symbol' => 'BYN',
+                    'is_main' => '1',
+                    'rate' => '1',
+                    'date' => $currentDate
+                ],
+                [
+                    'code' => 'EUR',
+                    'symbol' => '€',
+                    'is_main' => '0',
+                    'rate' => $eur,
+                    'date' => $currentDate
+                ],
+                [
+                    'code' => 'USD',
+                    'symbol' => '$',
+                    'is_main' => '0',
+                    'rate' => $usd,
+                    'date' => $currentDate
+                ]
+            ]);
+
+            DB::table('datestatuses')->insert(
+                [
+                    'daily_record_status' => $currentDate,
+                    'records_added' => 1
+                ]
+            );
+        }
+
 
         $productsQuery = Product::query(); // Product::query() - обращение к бд таблице продуктов
 
@@ -57,22 +108,48 @@ class MainController extends Controller
         // dd($request->getQueryString());
         // $products = $productsQuery->paginate(6);
         $products = $productsQuery->where('is_active', 1)->paginate(6);
+
+        if (!session()->has('currencies')) {
+            $currencies =  Currency::where('date', Carbon::now()->toDateString())->get();
+            session(['currencies' => $currencies]);
+        }
+
+
         return view('index', compact('products', 'usd', 'eur', 'rub'));
     }
+
+
+
+
+
     public function categories()
     {
         $categories = Category::get(); // возврат коллекции
         return view('categories', compact('categories'));
     }
+
+
+
+
+
+
     public function category($code)
     {
 
-        $client = new \GuzzleHttp\Client();
-        $currencyRequest = $client->request('GET', 'https://api.nbrb.by/exrates/rates?periodicity=0&parammode=19');
-        $currencyResponse = json_decode($currencyRequest->getBody()->getContents());
-        $usd = $currencyResponse[7]->Cur_OfficialRate;
-        $eur = $currencyResponse[9]->Cur_OfficialRate;
-        $rub = $currencyResponse[21]->Cur_OfficialRate;
+        // $client = new \GuzzleHttp\Client();
+        // $currencyRequest = $client->request('GET', 'https://api.nbrb.by/exrates/rates?periodicity=0&parammode=19');
+        // $currencyResponse = json_decode($currencyRequest->getBody()->getContents());
+        // $usd = $currencyResponse[7]->Cur_OfficialRate;
+        // $eur = $currencyResponse[9]->Cur_OfficialRate;
+        // $rub = $currencyResponse[21]->Cur_OfficialRate;
+
+
+        $AllRates = new ExchangeRates();
+        $usd = $AllRates->takeRates()['USD'];
+        $eur = $AllRates->takeRates()['EUR'];
+        $rub = $AllRates->takeRates()['RUB'];
+
+
 
         $category = Category::where('code', $code)->first(); // возвращает объект (поиск по элементу code и возврат объекта category)
         // $products = Product::where('category_id', $category->id)->get(); // удалено из-за вызова hasMany в модели
@@ -123,5 +200,28 @@ class MainController extends Controller
         App::setLocale($locale);
         // $currentLocale = App::getLocale();
         return redirect()->back();
+    }
+
+    public function changeCurrency($currencyCode)
+    {
+        $currencyDate = Carbon::now()->toDateString();
+        $currency = Currency::ByCode($currencyCode, $currencyDate)->firstOrFail();
+        $currencies =  Currency::where('date', $currencyDate)->get();
+
+        session([
+            'currency' => $currency->code,
+            'currencyRate' => $currency->rate,
+            'currencyDate' => $currencyDate,
+            'currencies' => $currencies
+        ]);
+        return redirect()->back();
+    }
+
+    public function clearCurrencySession()
+    {
+        session()->forget('currency');
+        session()->forget('currencyDate');
+        session()->forget('currencies');
+        session()->forget('currencyRate');
     }
 }

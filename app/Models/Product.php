@@ -6,6 +6,7 @@ use App\Models\Imag;
 use App\Models\Order;
 use App\Models\Review;
 use App\Models\Category;
+use App\Classes\CurrencyConversion;
 use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -77,5 +78,10 @@ class Product extends Model
     public function isAvailable()
     {
         return !$this->trashed() && $this->count > 0;
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return round(CurrencyConversion::convert($value), 2);
     }
 }
